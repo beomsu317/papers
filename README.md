@@ -227,6 +227,6 @@ WMT 2014 영어-프랑스어 번역 과제에서, 우리의 대형 모델은 41.
 
 **감사의 말:** 유익한 의견과 수정, 영감을 주신 Nal Kalchbrenner와 Stephan Gouws에게 감사합니다.
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>Figure 3: </p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>Figure: 3</p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Figure 4: </p></figcaption></figure>
