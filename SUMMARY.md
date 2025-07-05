@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Attention Is All You Need](attention-is-all-you-need.md)
+* [Attention Is All You Need](README.md)

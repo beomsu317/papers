@@ -28,6 +28,8 @@
 
 대부분의 경쟁력 있는 신경 시퀀스 변환 모델은 인코더-디코더 구조를 가지고 있습니다. 여기서 인코더는 기호 표현의 입력 시퀀스 $$(x_1, ..., x_n)$$을 연속적인 표현 $$z = (z_1, ..., z_n)$$의 시퀀스에 매핑합니다. $$z$$가 주어지면 디코더는 한 번에 하나의 요소를 기호의 출력 시퀀스 $$(y_1, ..., y_m)$$를 생성합니다. 각 단계에서 모델은 이전에 생성된 기호를 다음 기호를 생성할 때 추가 입력으로 사용하여 자기 회귀적입니다.
 
+<figure><img src=".gitbook/assets/image (3).png" alt="" width="375"><figcaption><p>Figure 1: The Transformer - model architecture.</p></figcaption></figure>
+
 3.1 인코더 및 디코더 스택
 
 **인코더:** 인코더는 $$N = 6$$개의 동일한 레이어 스택으로 구성됩니다. 각 레이어에는 두 개의 하위 레이어가 있습니다. 첫 번째는 다중 헤드 셀프 어텐션 메커니즘이고 두 번째는 간단한 위치별 완전 연결 피드포워드 네트워크입니다. 두 하위 레이어 각각에 잔여 연결을 사용하고 그 뒤에 레이어 정규화를 적용합니다. 즉, 각 하위 레이어의 출력은 $$LayerNorm(x + Sublayer(x))$$이며, 여기서 $$Sublayer(x)$$는 하위 레이어 자체에서 구현된 함수입니다. 이러한 잔여 연결을 용이하게 하기 위해 모델의 모든 하위 레이어와 임베딩 레이어는 차원이 $$d_{model} = 512$$인 출력을 생성합니다.
@@ -38,7 +40,7 @@
 
 어텐션 함수는 쿼리와 키-값 쌍 집합을 출력에 매핑하는 것으로 설명할 수 있습니다. 여기서 쿼리, 키, 값 및 출력은 모두 벡터입니다. 출력은 값의 가중 합으로 계산되며, 각 값에 할당된 가중치는 해당 키와 쿼리의 호환성 함수에 의해 계산됩니다.
 
-<figure><img src="broken-reference" alt="" width="563"><figcaption><p>Figure 2: (left) Scaled Dot-Product Attention. <br>(right) Multi-Head Attention consists of several attention layers running in parallel.</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption><p>Figure 2: (left) Scaled Dot-Product Attention.<br>(right) Multi-Head Attention consists of several attention layers running in parallel.</p></figcaption></figure>
 
 #### 3.2.1 스케일드 닷-프로덕트 어텐션
 
