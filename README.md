@@ -1,6 +1,4 @@
-# Attention Is All You Need
-
-> 원문: https://arxiv.org/pdf/1706.03762
+# [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)
 
 ## 초록
 
