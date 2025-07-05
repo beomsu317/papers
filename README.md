@@ -227,6 +227,6 @@ WMT 2014 영어-프랑스어 번역 과제에서, 우리의 대형 모델은 41.
 
 **감사의 말:** 유익한 의견과 수정, 영감을 주신 Nal Kalchbrenner와 Stephan Gouws에게 감사합니다.
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>Figure: 3</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image.png" alt="An example of the attention mechanism following long-distance dependencies."><figcaption><p>Figure 3: An example of the attention mechanism following long-distance dependencies in the encoder self-attention in layer 5 of 6. Many of the attention heads attend to the anaphoric referent of the word 'making', completing the phrase 'making...more difficult'.</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Figure 4: </p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1).png" alt="Two attention heads attending to the referent of the pronoun 'its'."><figcaption><p>Figure 4: Two attention heads, also in layer 5 of 6, attending to the referent of the pronoun ‘its’. The full attention of the head is in green, and the attention for just the word ‘its’ is in orange.</p></figcaption></figure>
