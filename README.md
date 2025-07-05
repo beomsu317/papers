@@ -1,6 +1,6 @@
 # Attention Is All You Need
 
-> 원문: [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)
+> 이 문서는 [Attention Is All You Need](https://arxiv.org/pdf/1706.03762)를 번역한 것입니다.
 
 ## 초록
 
