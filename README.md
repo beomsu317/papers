@@ -50,7 +50,11 @@ End-to-End Memory Network는 순환 어텐션 메커니즘을 기반으로 하�
 
 실제로는 여러 쿼리에 대한 어텐션 함수를 동시에 계산하며, 쿼리들을 행렬 $$Q$$로 묶습니다. 키와 값도 각각 행렬 $$K$$와 $$V$$로 묶습니다. 출력 행렬은 다음과 같이 계산됩니다.
 
-$$Attention(Q, K, V) = softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
+$$
+\begin{align}
+Attention(Q, K, V) = softmax(\frac{Q K^T}{\sqrt{d_k}})V
+\end{align}
+$$
 
 가장 널리 사용되는 어텐션 함수는 추가 어텐션(additive attention)과 내적 어텐션(dot-product attention)입니다. 내적 어텐션은 스케일링 인수 $$\frac{1}{\sqrt{d_k}}$$를 제외하면 우리 알고리즘과 동일합니다. 추가 어텐션은 단일 은닉 레이어를 가진 피드포워드 네트워크를 사용하여 유사도를 계산합니다. 두 방식은 이론적 복잡성은 비슷하지만, 고도로 최적화된 행렬 곱셈 코드를 사용할 수 있기 때문에 실제로는 내적 어텐션이 훨씬 빠르고 공간 효율적입니다.
 
