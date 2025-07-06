@@ -257,3 +257,4 @@ WMT 2014 영어-프랑스어 번역 과제에서, 우리의 대형 모델은 41.
 <figure><img src=".gitbook/assets/image (1).png" alt="Two attention heads attending to the referent of the pronoun &#x27;its&#x27;."><figcaption><p>Figure 4: Two attention heads, also in layer 5 of 6, attending to the referent of the pronoun ‘its’. The full attention of the head is in green, and the attention for just the word ‘its’ is in orange.</p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption><p>Figure 5: Three attention heads, also in layer 5 of 6, that learn to attend to references of the pronoun 'it' in different contexts. The full attention of the head is in green, and the attention for just the word 'it' is in orange.</p></figcaption></figure>
+
