@@ -62,7 +62,12 @@ $$d_{model}$$ 차원의 키, 값, 쿼리를 사용하여 단일 어텐션 함수
 
 멀티-헤드 어텐션을 통해 모델은 서로 다른 위치의 다양한 표현 하위 공간(representation subspace)의 정보에 공동으로 주목할 수 있습니다. 단일 어텐션 헤드를 사용하면 이러한 기능이 평균화로 인해 저해됩니다.
 
-$$MultiHead(Q, K, V) = Concat(head_1, ..., head_h)W^O$$ $$where \ head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)$$
+$$
+\begin{align}
+MultiHead(Q, K, V) &= Concat(head_1, ..., head_h)W^O\\
+where \ head_i &= Attention(QW_i^Q, KW_i^K, VW_i^V)
+\end{align}
+$$ 
 
 여기서 프로젝션은 파라미터 행렬 $$W_i^Q \in \mathbb{R}^{d_{model} \times d_k}$$, $$W_i^K \in \mathbb{R}^{d_{model} \times d_k}$$, $$W_i^V \in \mathbb{R}^{d_{model} \times d_v}$$ 및 $$W^O \in \mathbb{R}^{h d_v \times d_{model}}$$입니다.
 
