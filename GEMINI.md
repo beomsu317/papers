@@ -1,10 +1,15 @@
 # PDF 논문 한글 번역 가이드
 
+> **번역 안내:**
+> - 한글 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어로 그대로 표기해 주세요.
+> - 문장 구조와 설명은 자연스러운 한글로 번역하되, 용어는 영어로 유지합니다.
+> - **본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해 주세요.**
+
 ## 🏃‍♂️ 빠른 시작 (Quick Start)
 
 1. **PDF 텍스트 추출, 한글 번역, 자동 디렉토리 및 파일 저장**
    ```
-   <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘.
+   <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘.
    ```
 
 ---
@@ -17,7 +22,7 @@
 ### 2. PDF 텍스트 추출, 번역, 자동 디렉토리 및 파일 저장
 - 아래 프롬프트에서 `<PDF_FILE_PATH>`를 실제 경로로 바꿔 입력하세요.
   ```
-  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘.
+  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘.
   ```
   - **이미지(figure) 부분 안내:**
     - 논문 내 이미지(figure)는 아래와 같이 `<figure><img src="" alt=""><figcaption><p>...</p></figcaption></figure>` 형태로 캡션을 달아줘.
@@ -48,7 +53,7 @@
 ### 4. 전문 용어 유지 번역
 - 번역 시 특정 용어는 영어로 남기고 싶다면 아래처럼 요청하세요.
   ```
-  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 의미가 모호해지거나 IT 전문 용어(예: Transformer, attention, model, layer)는 영어 그대로 사용해줘.
+  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용해줘.
   ```
 
 ### 5. 참고문헌 링크 자동화
@@ -84,5 +89,11 @@
 ```
 
 ---
+
+모든 번역 및 저장 작업이 끝난 후, 아래 항목을 반드시 검증해 누락된 단계가 없는지 확인하세요:
+- 본문, 표(table), 그림(figure), 수식, 부록(appendix) 등 모든 데이터가 번역 결과에 포함되어 있는가?
+- 참고문헌 번호가 실제 논문 URL로 올바르게 마크다운 링크 처리되었는가?
+- 번역 결과가 논문 제목 디렉토리의 README.md에 자동 저장되었는가?
+- 만약 해당 디렉토리에 기존 README.md 파일이 있다면, 새 번역 내용이 누락 없이 반영되었는지, 기존 내용과 병합 또는 업데이트가 필요한 부분이 없는지 반드시 확인하고 필요시 업데이트해줘.
 
 이 가이드는 논문 번역 및 관리 자동화를 위한 실전 프롬프트 예시와 고급 활용법을 제공합니다. 필요에 따라 각 섹션의 프롬프트를 조합해 사용하세요.
