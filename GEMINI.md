@@ -61,14 +61,13 @@
 - 본문 내 참고문헌 인용 번호는 `[[1]](#ref1)`, `[[2]](#ref2)`와 같이, 각 번호가 하단 참고문헌 항목의 앵커와 정확히 연결되도록 마크다운 링크를 사용합니다.
   - 예시 (본문): `이 방법은 기존 연구[[1]](#ref1)와 비교하여 ...`
 - 하단 참고문헌 항목은 반드시 마크다운 리스트(- 또는 *) 형태로 작성하며, 각 번호별로 앵커를 추가해 본문 인용과 연결합니다.
-  - 예시 (하단): `- <a id="ref1"></a>[1] Lei Ba et al. Layer normalization. [arXiv:1607.06450](https://arxiv.org/abs/1607.06450)`
+  - 예시 (하단): `- <a id="ref1"></a>[1] Lei Ba et al. Layer normalization.`
   - 마크다운 리스트 예시:
     ```markdown
-    - <a id="ref1"></a>[1] Lei Ba et al. Layer normalization. [arXiv:1607.06450](https://arxiv.org/abs/1607.06450)
-    - <a id="ref2"></a>[2] Vaswani et al. Attention is all you need. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
+    - <a id="ref1"></a>[1] Lei Ba et al. Layer normalization.
+    - <a id="ref2"></a>[2] Vaswani et al. Attention is all you need.
     ```
 - 각 참고문헌 항목은 논문 제목을 영어 원문 그대로 표기합니다.
-- 공식, DOI, arXiv 등 실제 논문 URL을 찾아 마크다운 링크로 추가합니다.
 - 참고문헌 번호는 본문 내 인용([1], [2], ...)과 일치해야 하며, 번호는 그대로 사용합니다.
 
 ---
@@ -111,14 +110,13 @@
   - 본문 내 참고문헌 인용 번호는 `[[1]](#ref1)`, `[[2]](#ref2)`와 같이, 각 번호가 하단 참고문헌 항목의 앵커와 정확히 연결되도록 마크다운 링크를 사용합니다.
     - 예시 (본문): `이 방법은 기존 연구[[1]](#ref1)와 비교하여 ...`
   - 하단 참고문헌 항목은 반드시 마크다운 리스트(- 또는 *) 형태로 작성하며, 각 번호별로 앵커를 추가해 본문 인용과 연결합니다.
-    - 예시 (하단): `- <a id="ref1"></a>[1] Lei Ba et al. Layer normalization. [arXiv:1607.06450](https://arxiv.org/abs/1607.06450)`
+    - 예시 (하단): `- <a id="ref1"></a>[1] Lei Ba et al. Layer normalization.`
     - 마크다운 리스트 예시:
       ```markdown
-      - <a id="ref1"></a>[1] Lei Ba et al. Layer normalization. [arXiv:1607.06450](https://arxiv.org/abs/1607.06450)
-      - <a id="ref2"></a>[2] Vaswani et al. Attention is all you need. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
+      - <a id="ref1"></a>[1] Lei Ba et al. Layer normalization.
+      - <a id="ref2"></a>[2] Vaswani et al. Attention is all you need.
       ```
   - 각 참고문헌 항목은 논문 제목을 영어 원문 그대로 표기합니다.
-  - 공식, DOI, arXiv 등 실제 논문 URL을 찾아 마크다운 링크로 추가합니다.
   - 참고문헌 번호는 본문 내 인용([1], [2], ...)과 일치해야 하며, 번호는 그대로 사용합니다.
 
 ---
