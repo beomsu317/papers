@@ -4,13 +4,13 @@
 > - 한글 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어로 그대로 표기합니다.
 > - 문장 구조와 설명은 자연스러운 한글로 번역하되, **논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지**합니다.
 > - 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성합니다.
-> - **참고문헌(References)과 부록(Appendix)은 반드시 영어 원문 그대로 포함해야 하며, 절대 생략하지 말고 모두 번역 결과에 포함해야 합니다.**
+> - **참고문헌(References)은 반드시 영어 원문 그대로 포함해야 하며, 절대 생략하지 말고 모두 번역 결과에 포함해야 합니다.**
 
 ## 🏃‍♂️ 빠른 시작 (Quick Start)
 
 1. PDF 텍스트 추출, 한글 번역, 자동 디렉토리 및 파일 저장
    ```
-   <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘. 참고문헌과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
+   <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘. 참고문헌은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
    ```
 
 ---
@@ -23,7 +23,7 @@
 ### 2. PDF 텍스트 추출, 번역, 자동 디렉토리 및 파일 저장
 - 아래 프롬프트에서 `<PDF_FILE_PATH>`를 실제 경로로 바꿔 입력합니다.
   ```
-  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘. 참고문헌과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
+  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용하고, 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성해줘. 참고문헌은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
   ```
   - **이미지(figure) 작성법:**
     - 논문 내 이미지는 아래와 같이 작성합니다.
@@ -42,8 +42,8 @@
       ```
     - 표(table)의 caption(설명문)도 영어 원문 그대로 유지합니다.
   - **마지막 단계 체크리스트:**
-    - 번역이 끝난 후, 본문과 참고문헌, 부록(Appendix) 뒤에 추가 데이터(figure, table, appendix 등)가 누락되지 않았는지 반드시 확인합니다.
-    - **특히 참고문헌(References)과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해야 하며, 절대 생략하지 말아야 합니다.**
+    - 번역이 끝난 후, 본문과 참고문헌 뒤에 추가 데이터(figure, table, appendix 등)가 누락되지 않았는지 반드시 확인합니다.
+    - **특히 참고문헌(References)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해야 하며, 절대 생략하지 말아야 합니다.**
     - 누락된 데이터가 있다면 모두 번역 결과에 포함합니다.
 
 ### 3. 논문 제목 추출 및 디렉토리 생성
@@ -55,7 +55,7 @@
 ### 4. 전문 용어 유지 번역
 - 번역 시 특정 용어를 영어로 남기고 싶을 때는 아래와 같이 요청합니다.
   ```
-  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용해줘. 참고문헌과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
+  <PDF_FILE_PATH>에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 단, 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어 그대로 사용해줘. 참고문헌은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
   ```
 
 ### 5. 참고문헌 처리 안내
@@ -76,7 +76,7 @@
 ## 💡 실전 예시 (Best Practice)
 
 ```
-/Users/user/Desktop/papers/attention-is-all-you-need/1706.03762v7.pdf 에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 참고문헌과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
+/Users/user/Desktop/papers/attention-is-all-you-need/1706.03762v7.pdf 에 있는 논문을 한글로 번역해줘. 논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지하고, 본문 내용만 자연스러운 한글로 번역해줘. 논문 제목으로 디렉토리를 만들고, 번역 결과는 그 디렉토리의 README.md 파일로 자동 저장해줘. 참고문헌은 영어 원문 그대로 반드시 모두 번역 결과에 포함해줘.
 ```
 
 - **이미지(figure) 작성법:**
@@ -126,4 +126,4 @@
 - 번역 결과가 논문 제목 디렉토리의 README.md에 자동 저장되었는지 확인합니다.
 - 번역 결과가 자연스럽고 이해할 수 있는 수준인지, 어색하거나 이상한 부분이 없는지 검토합니다.
 - 해당 디렉토리에 기존 README.md 파일이 있다면, **아래 프롬프트 내용에 따라 기존 README.md 파일의 내용을 반드시 확인하고, 새 번역 내용이 누락 없이 반영되었는지, 기존 내용과 병합 또는 업데이트가 필요한 부분이 없는지 반드시 확인하고 필요시 업데이트**합니다.
-- **참고문헌(References)과 부록(Appendix)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해야 하며, 절대 생략하지 말아야 합니다.**
+- **참고문헌(References)은 영어 원문 그대로 반드시 모두 번역 결과에 포함해야 하며, 절대 생략하지 말아야 합니다.**
