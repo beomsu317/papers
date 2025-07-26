@@ -287,45 +287,94 @@ OpenSSL 1.1.1의 각 문자 버전에 대한 분해 결과를 표 2에 나열합
 | u-v | 6 | 8 | 103 |
 | v-w | 9 | 8 | 161 |
 
-**Table 10: Metadata of version diffs in OpenSSL 1.1.1.**
+## 8 Discussion
 
-| CVE ID | Patched Version | Result |
-| :--- | :--- | :--- |
-| CVE-2023-3817 | OpenSSL1.1.1v | Yes |
-| CVE-2023-3446 | OpenSSL1.1.1v | Yes |
-| CVE-2023-2650 | OpenSSL1.1.1u | Yes |
-| CVE-2023-0465 | OpenSSL1.1.1u | Yes |
-| CVE-2023-0464 | OpenSSL1.1.1u | No |
-| CVE-2023-0286 | OpenSSL1.1.1t | Yes |
-| CVE-2023-0215 | OpenSSL1.1.1t | Yes |
-| CVE-2022-4450 | OpenSSL1.1.1t | Yes |
-| CVE-2022-4304 | OpenSSL1.1.1t | Yes |
-| CVE-2022-0778 | OpenSSL1.1.1n | Yes |
-| CVE-2021-3712 | OpenSSL1.1.1l | Yes |
-| CVE-2021-3711 | OpenSSL1.1.1l | Yes |
-| CVE-2021-3450 | OpenSSL1.1.1k | Yes |
-| CVE-2021-3449 | OpenSSL1.1.1k | No |
-| CVE-2021-23841 | OpenSSL1.1.1j | Yes |
-| CVE-2021-23840 | OpenSSL1.1.1j | Yes |
-| CVE-2020-1971 | OpenSSL1.1.1i | Yes |
-| CVE-2020-1967 | OpenSSL1.1.1g | Yes |
-| CVE-2019-1563 | OpenSSL1.1.1d | No |
-| CVE-2019-1549 | OpenSSL1.1.1d | Yes |
-| CVE-2019-1547 | OpenSSL1.1.1d | Yes |
-| CVE-2019-1543 | OpenSSL1.1.1c | Yes |
-| CVE-2018-0734 | OpenSSL1.1.1a | Yes |
-| CVE-2018-0735 | OpenSSL1.1.1a | Yes |
+제시된 시스템의 효과를 평가하기 위해, 우리는 OpenSSL 1.1.1의 모든 인접 문자 버전 간의 diff에 DISPATCH를 적용합니다. 이는 문자 버전이 더 많은 버그 수정 및 보안 패치를 포함하고, 각 diff가 여러 얽힌 보안 및 비보안 패치를 동시에 포함하는 얽힌 패치를 나타내기 때문입니다. 그러나 커밋과 개별 패치 간에 항상 1대1 매핑이 있는 것은 아닙니다. 개별 패치는 여러 커밋으로 구성될 수 있으며, 커밋은 여러 개별 패치를 포함할 수 있습니다. 따라서 우리는 이 23개 문자 버전 diff의 모든 개별 패치를 수동으로 식별하여 ground truth로 사용합니다. 우리는 정확도와 정확 일치(Exact Match)를 평가 메트릭으로 사용합니다. 이름에서 알 수 있듯이, 정확 일치는 DISPATCH가 생성한 개별 패치가 ground truth와 한 줄씩 정확히 동일한 것을 의미합니다. 정확도는 정확히 일치하는 개별 패치의 비율을 나타냅니다.
 
-**Table 11: Unravelment Results on Security Patches Annotated by CVEs [4] in OpenSSL 1.1.1.**
+## 9 Related Work
 
-| Application | # IP | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Nginx | 26 | 47 | 13 | 50% | 6 | 5 | 19% | 192 | 15 | 58% | 29 | 24 | 92% |
-| Linux Kernel | 114 | 205 | 62 | 54% | 7 | 3 | 3% | 208 | 58 | 51% | 118 | 113 | 99% |
-| ImageMagick | 50 | 420 | 13 | 26% | 5 | 0 | 0% | 429 | 14 | 28% | 58 | 48 | 96% |
-| Total | 190 | 672 | 88 | 43.3% | 18 | 8 | 7.3% | 829 | 87 | 45.7% | 205 | 185 | 95% |
+**얽힌 패치 분석 및 분해.** 연구자들은 얽힌 커밋을 분해하기 위해 노력해 왔습니다. 휴리스틱 기반 접근 방식은 미리 정의된 템플릿이나 마이닝 패턴[[20]](#ref20), [[25]](#ref25), [[27]](#ref27), [[29]](#ref29), [[30]](#ref30), [[48]](#ref48), [[50]](#ref50)을 활용하여 단일 목적 커밋을 얻습니다. 슬라이싱 기반 접근 방식[[25]](#ref25),[[39]](#ref39),[[56]](#ref56)과 그래프 클러스터링 기반 접근 방식[[18]](#ref18),[[22]](#ref22),[[24]](#ref24),[[32]](#ref32),[[41]](#ref41),[[44]](#ref44),[[47]](#ref47),[[51]](#ref51)은 종속성 분석을 수행하고 프로그램 슬라이싱 기술 및 그래프 클러스터링 알고리즘을 사용하여 종속성 그래프의 노드를 그룹화합니다. 또한, [[25]](#ref25),[[47]](#ref47),[[56]](#ref56)은 자동 프로세스를 보완하기 위한 대화형 메커니즘을 도입합니다. 또한, [[23]](#ref23)은 IDE의 정보를 채택하고, [[26]](#ref26), [[46]](#ref46)은 얽힌 커밋을 수동으로 분해합니다.
 
-**Table 12: Comparison with baseline approaches on Nginx, Linux Kernel, and ImageMagick.**
+**제약된 프로그램 슬라이싱.** 연구자들은 프로그램 슬라이싱을 안내하기 위해 여러 제약 조건을 도입합니다. [[34]](#ref34)는 핵심 지점(중심)을 도입하고 DFG 또는 CFG에서 코드 가젯을 슬라이스합니다. [[59]](#ref59)는 특정 구문 특성과 일치하는 문장의 하위 집합인 코드 어텐션을 제안하여 코드 가젯을 정제합니다. [[33]](#ref33)은 프로그램 슬라이싱을 위한 시작점과 노드 유형을 정제합니다. [[37]](#ref37)은 취약점 유형에 따라 발현 지점을 정의합니다. 이들과 비교하여, 패턴 기반 슬라이싱은 퍼지 매칭으로 슬라이싱 절차를 안내하여 DISPATCH에 적응성을 제공합니다.
+
+## 10 Conclusion
+
+우리는 PatchGraph와 패치 종속성 분석을 통해 얽힌 보안 패치를 분해하는 DISPATCH를 제안합니다. PatchGraph는 삭제/추가/업데이트된 시맨틱을 캡처하는 풍부한 그래프 구조로 세분화된 diff 동작을 나타냅니다. 패치 종속성 분석은 문장 및 세그먼트 종속성 분석을 포함하여 완전한 개별 보안 패치를 얻습니다. 우리는 4개의 실제 인기 프로젝트의 버전 diff에 대한 DISPATCH의 효과를 평가합니다. 실험 결과, DISPATCH는 일반 개별 패치의 90% 이상, 개별 보안 패치의 87% 이상을 효과적으로 풀어냅니다. 우리는 SOTA 방법과 우리의 접근 방식을 비교하고 DISPATCH가 20% 이상의 정확도 향상으로 이들을 능가함을 보여줍니다.
+
+## Acknowledgments
+
+우리는 우리의 Shepherd와 검토자들의 통찰력 있는 피드백에 감사드립니다. 이 연구는 ONR 보조금 N00014-23-1-2122와 George Mason University의 IDIA P3 Faculty Fellowship의 부분적인 지원을 받았습니다.
+
+## Ethics Considerations
+
+우리의 작업은 GitHub의 오픈 소스 코드에 대한 프로그램 분석을 수행합니다. 모든 실험은 공개적으로 사용 가능한 소스 코드 및 탐지 모델에서 수행됩니다. 이 작업으로 인해 새로운 취약점이 생성되거나 식별되지 않으므로 윤리적 문제가 발생하지 않습니다.
+
+## Open Science
+
+이 작업의 소스 코드와 데이터셋은 다음에서 사용할 수 있습니다: https://figshare.com/articles/software/DISPATCH/28256150.
+
+## References
+
+- <a id="ref1"></a>[1] "Official Patch for CVE-2021-3449," https://github.com/openssl/openssl/commit/fb9fa6b51defd48157eeb207f52181f735d96148.
+- <a id="ref2"></a>[2] "Official Patch for CVE-2022-4304," https://github.com/openssl/openssl/commit/3f499b24f3bcd66db022074f7e8b4f6ee266a3ae.
+- <a id="ref3"></a>[3] "Official Patch for CVE-2023-0464," https://github.com/openssl/openssl/commit/879f7080d7e141f415c79eaa3a8ac4a3dad0348b.
+- <a id="ref4"></a>[4] "OpenSSL Vulnerabilities Fixed in OpenSSL 1.1.1," https://www.openssl.org/news/vulnerabilities-1.1.1.html.
+- <a id="ref5"></a>[5] "grammar zoo browsable c99 grammar 2015," 2015. [Online]. Available: https://slebok.github.io/zoo/c/c99/iso-9899-tc3/extracted/index.html
+- <a id="ref6"></a>[6] "Git Repository of UTANGO." https://github.com/Commit-Untangling/commit-untangling, 2022.
+- <a id="ref7"></a>[7] "National Vulnerability Database," https://nvd.nist.gov, 2023.
+- <a id="ref8"></a>[8] "OpenSSL Project," https://github.com/openssl/openssl, 2023.
+- <a id="ref9"></a>[9] "Patch," https://csrc.nist.gov/glossary/term/patch, 2023.
+- <a id="ref10"></a>[10] "Release Strategy of OpenSSL," https://www.openssl.org/policies/releasestrat, 2023.
+- <a id="ref11"></a>[11] "Tree-Sitter," https://tree-sitter.github.io/tree-sitter/, 2023.
+- <a id="ref12"></a>[12] 2024. [Online]. Available: https://github.com/nothings/stb/commit/98fdfc6df88b1e34a736d5e126e6c8139c8de1a6
+- <a id="ref13"></a>[13] 2024. [Online]. Available: https://github.com/FFmpeg/FFmpeg/commit/54655623a82632e7624714d7b2a3e039dc5faa7e
+- <a id="ref14"></a>[14] "Split View of a Commit." https://github.com/openssl/openssl/commit/041962b429ebe748c8b6b7922980dfb6decfef26?diff=split&w=0, 2024.
+- <a id="ref15"></a>[15] "Understanding Patches and Software Updates." https://www.cisa.gov/news-events/news/understanding-patches-and-software-updates, 2024.
+- <a id="ref16"></a>[16] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat et al., "Gpt-4 technical report," arXiv preprint arXiv:2303.08774, 2023.
+- <a id="ref17"></a>[17] alexbuckgit, "C docs - get started, tutorials, reference." 2024. [Online]. Available: https://learn.microsoft.com/en-us/cpp/c-language/?view=msvc-170
+- <a id="ref18"></a>[18] R. Arima, Y. Higo, and S. Kusumoto, "A study on inappropriately partitioned commits: How much and what kinds of ip commits in java projects?" in Proceedings of the 15th International Conference on Mining Software Repositories, 2018, pp. 336-340.
+- <a id="ref19"></a>[19] W. Bai, Q. Wu, K. Wu, and K. Lu, "Exploring the influence of prompts in llms for security-related tasks."
+- <a id="ref20"></a>[20] M. Barnett, C. Bird, J. Brunet, and S. K. Lahiri, "Helping developers help themselves: Automatic decomposition of code review changesets," in 2015 IEEE/ACM 37th IEEE International Conference on Software Engineering, vol. 1. IEEE, 2015, pp. 134-144.
+- <a id="ref21"></a>[21] C. Bellei, H. Alattas, and N. Kaaniche, "Label-gcn: an effective method for adding label propagation to graph convolutional networks," arXiv preprint arXiv:2104.02153, 2021.
+- <a id="ref22"></a>[22] S. Chen, S. Xu, Y. Yao, and F. Xu, "Untangling composite commits by attributed graph clustering," in Proceedings of the 13th Asia-Pacific Symposium on Internetware, 2022, pp. 117–126.
+- <a id="ref23"></a>[23] M. Dias, A. Bacchelli, G. Gousios, D. Cassou, and S. Ducasse, "Untangling fine-grained code changes," in 2015 IEEE 22nd International Conference on Software Analysis, Evolution, and Reengineering (SANER). IEEE, 2015, pp. 341-350.
+- <a id="ref24"></a>[24] J.-R. Falleri, F. Morandat, X. Blanc, M. Martinez, and M. Monperrus, "Fine-grained and accurate source code differencing," in Proceedings of the 29th ACM/IEEE international conference on Automated software engineering, 2014, pp. 313-324.
+- <a id="ref25"></a>[25] B. Guo and M. Song, "Interactively decomposing composite changes to support code review and regression testing," in 2017 IEEE 41st Annual Computer Software and Applications Conference. IEEE, 2017, pp. 118-127.
+- <a id="ref26"></a>[26] S. Herbold, A. Trautsch, and B. Ledel, "Large-scale manual validation of bugfixing changes," in Proceedings of the 17th International Conference on Mining Software Repositories, 2020, pp. 611-614.
+- <a id="ref27"></a>[27] K. Herzig, S. Just, and A. Zeller, "The impact of tangled code changes on defect prediction models," Empirical Software Engineering, vol. 21, pp. 303-336, 2016.
+- <a id="ref28"></a>[28] M. Jin, S. Shahriar, M. Tufano, X. Shi, S. Lu, N. Sundaresan, and A. Svyatkovskiy, "Inferfix: End-to-end program repair with Ilms," in Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2023, pp. 1646-1656.
+- <a id="ref29"></a>[29] H. Kirinuki, Y. Higo, K. Hotta, and S. Kusumoto, "Hey! are you committing tangled changes?" in Proceedings of the 22nd International Conference on Program Comprehension, 2014, pp. 262–265.
+- <a id="ref30"></a>[30] "Splitting commits via past code changes," in 2016 23rd Asia-Pacific Software Engineering Conference (APSEC). IEEE, 2016, pp. 129-136.
+- <a id="ref31"></a>[31] F. Li and V. Paxson, "A large-scale empirical study of security patches," in Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security, 2017, pp. 2201-2215.
+- <a id="ref32"></a>[32] Y. Li, S. Wang, and T. N. Nguyen, "Utango: untangling commits with context-aware, graph-based, code change clustering learning model," in Proceedings of the 30th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2022, pp. 221-232.
+- <a id="ref33"></a>[33] Z. Li, D. Zou, S. Xu, H. Jin, Y. Zhu, and Z. Chen, "Sysevr: A framework for using deep learning to detect software vulnerabilities," IEEE Transactions on Dependable and Secure Computing, vol. 19, no. 4, pp. 2244-2258, 2021.
+- <a id="ref34"></a>[34] Z. Li, D. Zou, S. Xu, X. Ou, H. Jin, S. Wang, Z. Deng, and Y. Zhong, "Vuldeepecker: A deep learning-based system for vulnerability detection," arXiv preprint arXiv:1801.01681, 2018.
+- <a id="ref35"></a>[35] K. Lu and H. Hu, "Where does it go? refining indirect-call targets with multi-layer type analysis," in Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security, 2019, pp. 1867-1881.
+- <a id="ref36"></a>[36] C. Luo, W. Meng, and S. Wang, "Strengthening supply chain security with fine-grained safe patch identification," in 2024 IEEE/ACM 46th International Conference on Software Engineering (ICSE). IEEE Computer Society, 2024, pp. 873-873.
+- <a id="ref37"></a>[37] Y. Mirsky, G. Macon, M. Brown, C. Yagemann, M. Pruett, E. Downing, S. Mertoguno, and W. Lee, “Vulchecker: Graph-based vulnerability localization in source code," in 31st USENIX Security Symposium, Security 2022, 2023.
+- <a id="ref38"></a>[38] D. Müllner, "Modern hierarchical, agglomerative clustering algorithms," arXiv preprint arXiv:1109.2378, 2011.
+- <a id="ref39"></a>[39] W. Muylaert and C. De Roover, "Untangling composite commits using program slicing," in 2018 IEEE 18th International Working Conference on Source Code Analysis and Manipulation (SCAM). IEEE, 2018, pp. 193-202.
+- <a id="ref40"></a>[40] H. A. Nguyen, A. T. Nguyen, and T. N. Nguyen, "Filtering noise in mixed-purpose fixing commits to improve defect prediction and localization," in 2013 IEEE 24th international symposium on software reliability engineering (ISSRE). IEEE, 2013, pp. 138-147.
+- <a id="ref41"></a>[41] H. A. Nguyen, T. N. Nguyen, D. Dig, S. Nguyen, H. Tran, and M. Hilton, "Graph-based mining of in-the-wild, fine-grained, semantic code change patterns," in 2019 IEEE/ACM 41st International Conference on Software Engineering (ICSE). IEEE, 2019, pp. 819-830.
+- <a id="ref42"></a>[42] NIST, "Common Weakness Enumeration Specification (CWE)," https://nvd.nist.gov/vuln/categories.
+- <a id="ref43"></a>[43] OpenSSL, "crypto/rsa/rsa_oaep." https://github.com/openssl/openssl/compare/OpenSSL_1_1_0...OpenSSL_1_1_1, 2023.
+- <a id="ref44"></a>[44] P.-P. Pârțachi, S. K. Dash, M. Allamanis, and E. T. Barr, "Flexeme: Untangling commits using lexical flows," in Proceedings of the 28th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2020, pp. 63-74.
+- <a id="ref45"></a>[45] J. Pennington, R. Socher, and C. D. Manning, "Glove: Global vectors for word representation," in Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP), 2014, pp. 1532-1543.
+- <a id="ref46"></a>[46] K. A. Safwan and F. Servant, "Decomposing the rationale of code commits: the software developer's perspective," in Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2019, pp. 397-408.
+- <a id="ref47"></a>[47] B. Shen, W. Zhang, C. Kästner, H. Zhao, Z. Wei, G. Liang, and Z. Jin, "Smartcommit: a graph-based interactive assistant for activity-oriented commits," in Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2021, pp. 379-390.
+- <a id="ref48"></a>[48] L. Sousa, D. Cedrim, A. Garcia, W. Oizumi, A. C. Bibiano, D. Oliveira, M. Kim, and A. Oliveira, "Characterizing and identifying composite refactorings: Concepts, heuristics and patterns," in Proceedings of the 17th International Conference on Mining Software Repositories, 2020, pp. 186-197.
+- <a id="ref49"></a>[49] X. Tang, Z. Chen, K. Kim, H. Tian, S. Ezzini, and J. Klein, "Just-in-time security patch detection-llm at the rescue for data augmentation," arXiv preprint arXiv:2312.01241, 2023.
+- <a id="ref50"></a>[50] Y. Tao and S. Kim, "Partitioning composite code changes to facilitate code review," in 2015 IEEE/ACM 12th Working Conference on Mining Software Repositories. IEEE, 2015, pp. 180-190.
+- <a id="ref51"></a>[51] M. Wang, Z. Lin, Y. Zou, and B. Xie, “Cora: Decomposing and describing tangled code changes for reviewer," in 2019 34th IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE, 2019, pp. 1050-1061.
+- <a id="ref52"></a>[52] S. Wang, X. Wang, K. Sun, S. Jajodia, H. Wang, and Q. Li, "Graphspd: Graph-based security patch detection with enriched code semantics," in 2023 IEEE Symposium on Security and Privacy (SP). IEEE, 2023, pp. 2409-2426.
+- <a id="ref53"></a>[53] X. Wang, S. Wang, P. Feng, K. Sun, and S. Jajodia, "Patchdb: A large-scale security patch dataset," in 2021 51st Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN). IEEE, 2021, pp. 149-160.
+- <a id="ref54"></a>[54] M. Weiser, "Program slicing," IEEE Transactions on software engineering, no. 4, pp. 352-357, 1984.
+- <a id="ref55"></a>[55] Wikipedia, "Levenshtein distance." https://en.wikipedia.org/wiki/Levenshtein_distance, 2024.
+- <a id="ref56"></a>[56] S. Yamashita, S. Hayashi, and M. Saeki, "Changebeadsthreader: An interactive environment for tailoring automatically untangled changes," in 2020 IEEE 27th International Conference on Software Analysis, Evolution and Reengineering (SANER). IEEE, 2020, pp. 657-661.
+- <a id="ref57"></a>[57] J. Zhou, M. Pacheco, J. Chen, X. Hu, X. Xia, D. Lo, and A. E. Hassan, "Colefunda: Explainable silent vulnerability fix identification," in 2023 IEEE/ACM 45th International Conference on Software Engineering (ICSE). IEEE, 2023, pp. 2565-2577.
+- <a id="ref58"></a>[58] Y. Zhou, J. K. Siow, C. Wang, S. Liu, and Y. Liu, "Spi: Automated identification of security patches via commits," ACM Transactions on Software Engineering and Methodology (TOSEM), vol. 31, no. 1, pp. 1-27, 2021.
+- <a id="ref59"></a>[59] D. Zou, S. Wang, S. Xu, Z. Li, and H. Jin, "uvuldeepecker: A deep learning-based system for multiclass vulnerability detection," IEEE Transactions on Dependable and Secure Computing, vol. 18, no. 5, pp. 2224-2236, 2019.
+
 
 ## A Entangled Patch Adoption
 
@@ -415,7 +464,10 @@ DISPATCH는 Python 스크립트로 구현됩니다. 버전 diff, OSS 패치 또�
 
 표 10은 OpenSSL 1.1.1의 버전 diff 메타데이터를 나열하며, 여기에는 수정된 C/C++ 파일 수, 관련 C/C++ 커밋 수 및 버전 diff의 줄 수가 포함됩니다.
 
-**Table 10: Metadata of version diffs in OpenSSL 1.1.1.**
+## E Unravelment Results on Security Patches Annotated by CVEs
+
+NVD에는 OpenSSL 1.1.1과 관련된 24개의 CVE가 있으며, CVE 기록에 주석이 달린 C/C++ 보안 패치를 포함합니다. 이 중 DISPATCH는 21개를 성공적으로 분해하여 87.5%의 정확도를 달성했습니다. 표 11은 자세한 결과를 보여줍니다. DISPATCH가 분해에 실패하고 이유를 보여주는 사례를 분석합니다. DISPATCH는 CVE-2023-0464 및 CVE-2019-1563에 대한 패치를 개별 패치 세그먼트로 분할하고 병합에 실패합니다. Listing 14와 15는 CVE-2023-0464[[3]](#ref3)에 대한 단순화된 패치를 보여주며, 이는 `node_maximum` 및 `extra_data`를 추가하여 X509 인증서에 대한 유효성 검사를 제한함으로써 수정되었습니다. 그러나 DISPATCH는 두 변수를 각각 추가하는 두 개의 개별 패치로 분할하여, 매개 변수 트리가 사전 패치 및 사후 패치에 존재하고 DISPATCH가 이를 변경되지 않은 것으로 처리하고 종속성을 무시하기 때문에 병합에 실패합니다. 또한, DISPATCH는 Listing 16에 표시된 CVE-2021-3449[[1]](#ref1)에 대한 패치를 분해하지 못합니다. 여기서 첫 번째 덩어리는 공식 패치입니다. DISPATCH는 100% 유사성 비율로 동일한 변경을 수행하므로 두 덩어리를 병합합니다.
+
 
 | Version | # File | # Commit | # Lines of Diff |
 | :--- | :--- | :--- | :--- |
@@ -443,9 +495,34 @@ DISPATCH는 Python 스크립트로 구현됩니다. 버전 diff, OSS 패치 또�
 | u-v | 6 | 8 | 103 |
 | v-w | 9 | 8 | 161 |
 
-## E Unravelment Results on Security Patches Annotated by CVEs
+**Table 10: Metadata of version diffs in OpenSSL 1.1.1.**
 
-NVD에는 OpenSSL 1.1.1과 관련된 24개의 CVE가 있으며, CVE 기록에 주석이 달린 C/C++ 보안 패치를 포함합니다. 이 중 DISPATCH는 21개를 성공적으로 분해하여 87.5%의 정확도를 달성했습니다. 표 11은 자세한 결과를 보여줍니다. DISPATCH가 분해에 실패하고 이유를 보여주는 사례를 분석합니다. DISPATCH는 CVE-2023-0464 및 CVE-2019-1563에 대한 패치를 개별 패치 세그먼트로 분할하고 병합에 실패합니다. Listing 14와 15는 CVE-2023-0464[[3]](#ref3)에 대한 단순화된 패치를 보여주며, 이는 `node_maximum` 및 `extra_data`를 추가하여 X509 인증서에 대한 유효성 검사를 제한함으로써 수정되었습니다. 그러나 DISPATCH는 두 변수를 각각 추가하는 두 개의 개별 패치로 분할하여, 매개 변수 트리가 사전 패치 및 사후 패치에 존재하고 DISPATCH가 이를 변경되지 않은 것으로 처리하고 종속성을 무시하기 때문에 병합에 실패합니다. 또한, DISPATCH는 Listing 16에 표시된 CVE-2021-3449[[1]](#ref1)에 대한 패치를 분해하지 못합니다. 여기서 첫 번째 덩어리는 공식 패치입니다. DISPATCH는 100% 유사성 비율로 동일한 변경을 수행하므로 두 덩어리를 병합합니다.
+| CVE ID | Patched Version | Result |
+| :--- | :--- | :--- |
+| CVE-2023-3817 | OpenSSL1.1.1v | Yes |
+| CVE-2023-3446 | OpenSSL1.1.1v | Yes |
+| CVE-2023-2650 | OpenSSL1.1.1u | Yes |
+| CVE-2023-0465 | OpenSSL1.1.1u | Yes |
+| CVE-2023-0464 | OpenSSL1.1.1u | No |
+| CVE-2023-0286 | OpenSSL1.1.1t | Yes |
+| CVE-2023-0215 | OpenSSL1.1.1t | Yes |
+| CVE-2022-4450 | OpenSSL1.1.1t | Yes |
+| CVE-2022-4304 | OpenSSL1.1.1t | Yes |
+| CVE-2022-0778 | OpenSSL1.1.1n | Yes |
+| CVE-2021-3712 | OpenSSL1.1.1l | Yes |
+| CVE-2021-3711 | OpenSSL1.1.1l | Yes |
+| CVE-2021-3450 | OpenSSL1.1.1k | Yes |
+| CVE-2021-3449 | OpenSSL1.1.1k | No |
+| CVE-2021-23841 | OpenSSL1.1.1j | Yes |
+| CVE-2021-23840 | OpenSSL1.1.1j | Yes |
+| CVE-2020-1971 | OpenSSL1.1.1i | Yes |
+| CVE-2020-1967 | OpenSSL1.1.1g | Yes |
+| CVE-2019-1563 | OpenSSL1.1.1d | No |
+| CVE-2019-1549 | OpenSSL1.1.1d | Yes |
+| CVE-2019-1547 | OpenSSL1.1.1d | Yes |
+| CVE-2019-1543 | OpenSSL1.1.1c | Yes |
+| CVE-2018-0734 | OpenSSL1.1.1a | Yes |
+| CVE-2018-0735 | OpenSSL1.1.1a | Yes |
 
 **Table 11: Unravelment Results on Security Patches Annotated by CVEs [4] in OpenSSL 1.1.1.**
 
@@ -525,92 +602,13 @@ NVD에는 OpenSSL 1.1.1과 관련된 24개의 CVE가 있으며, CVE 기록에 �
 
 얽힌 패치에서 개별 패치의 수가 그림 6에서 볼 수 있듯이 3개에서 122개로 증가함에 따라 DISPATCH는 일관되게 좋은 성능을 유지합니다.
 
+| Application | # IP | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy | # GP | # EMIP | Accuracy |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Nginx | 26 | 47 | 13 | 50% | 6 | 5 | 19% | 192 | 15 | 58% | 29 | 24 | 92% |
+| Linux Kernel | 114 | 205 | 62 | 54% | 7 | 3 | 3% | 208 | 58 | 51% | 118 | 113 | 99% |
+| ImageMagick | 50 | 420 | 13 | 26% | 5 | 0 | 0% | 429 | 14 | 28% | 58 | 48 | 96% |
+| Total | 190 | 672 | 88 | 43.3% | 18 | 8 | 7.3% | 829 | 87 | 45.7% | 205 | 185 | 95% |
+
+**Table 12: Comparison with baseline approaches on Nginx, Linux Kernel, and ImageMagick.**
+
 <figure><img src="assets/Figure_6.png" alt="Figure 6: Accuracy on different sizes of entangled patch."><figcaption><p>Figure 6: Accuracy on different sizes of entangled patch.</p></figcaption></figure>
-
-## 8 Discussion
-
-제시된 시스템의 효과를 평가하기 위해, 우리는 OpenSSL 1.1.1의 모든 인접 문자 버전 간의 diff에 DISPATCH를 적용합니다. 이는 문자 버전이 더 많은 버그 수정 및 보안 패치를 포함하고, 각 diff가 여러 얽힌 보안 및 비보안 패치를 동시에 포함하는 얽힌 패치를 나타내기 때문입니다. 그러나 커밋과 개별 패치 간에 항상 1대1 매핑이 있는 것은 아닙니다. 개별 패치는 여러 커밋으로 구성될 수 있으며, 커밋은 여러 개별 패치를 포함할 수 있습니다. 따라서 우리는 이 23개 문자 버전 diff의 모든 개별 패치를 수동으로 식별하여 ground truth로 사용합니다. 우리는 정확도와 정확 일치(Exact Match)를 평가 메트릭으로 사용합니다. 이름에서 알 수 있듯이, 정확 일치는 DISPATCH가 생성한 개별 패치가 ground truth와 한 줄씩 정확히 동일한 것을 의미합니다. 정확도는 정확히 일치하는 개별 패치의 비율을 나타냅니다.
-
-## 9 Related Work
-
-**얽힌 패치 분석 및 분해.** 연구자들은 얽힌 커밋을 분해하기 위해 노력해 왔습니다. 휴리스틱 기반 접근 방식은 미리 정의된 템플릿이나 마이닝 패턴[[20]](#ref20), [[25]](#ref25), [[27]](#ref27), [[29]](#ref29), [[30]](#ref30), [[48]](#ref48), [[50]](#ref50)을 활용하여 단일 목적 커밋을 얻습니다. 슬라이싱 기반 접근 방식[[25]](#ref25),[[39]](#ref39),[[56]](#ref56)과 그래프 클러스터링 기반 접근 방식[[18]](#ref18),[[22]](#ref22),[[24]](#ref24),[[32]](#ref32),[[41]](#ref41),[[44]](#ref44),[[47]](#ref47),[[51]](#ref51)은 종속성 분석을 수행하고 프로그램 슬라이싱 기술 및 그래프 클러스터링 알고리즘을 사용하여 종속성 그래프의 노드를 그룹화합니다. 또한, [[25]](#ref25),[[47]](#ref47),[[56]](#ref56)은 자동 프로세스를 보완하기 위한 대화형 메커니즘을 도입합니다. 또한, [[23]](#ref23)은 IDE의 정보를 채택하고, [[26]](#ref26), [[46]](#ref46)은 얽힌 커밋을 수동으로 분해합니다.
-
-**제약된 프로그램 슬라이싱.** 연구자들은 프로그램 슬라이싱을 안내하기 위해 여러 제약 조건을 도입합니다. [[34]](#ref34)는 핵심 지점(중심)을 도입하고 DFG 또는 CFG에서 코드 가젯을 슬라이스합니다. [[59]](#ref59)는 특정 구문 특성과 일치하는 문장의 하위 집합인 코드 어텐션을 제안하여 코드 가젯을 정제합니다. [[33]](#ref33)은 프로그램 슬라이싱을 위한 시작점과 노드 유형을 정제합니다. [[37]](#ref37)은 취약점 유형에 따라 발현 지점을 정의합니다. 이들과 비교하여, 패턴 기반 슬라이싱은 퍼지 매칭으로 슬라이싱 절차를 안내하여 DISPATCH에 적응성을 제공합니다.
-
-## 10 Conclusion
-
-우리는 PatchGraph와 패치 종속성 분석을 통해 얽힌 보안 패치를 분해하는 DISPATCH를 제안합니다. PatchGraph는 삭제/추가/업데이트된 시맨틱을 캡처하는 풍부한 그래프 구조로 세분화된 diff 동작을 나타냅니다. 패치 종속성 분석은 문장 및 세그먼트 종속성 분석을 포함하여 완전한 개별 보안 패치를 얻습니다. 우리는 4개의 실제 인기 프로젝트의 버전 diff에 대한 DISPATCH의 효과를 평가합니다. 실험 결과, DISPATCH는 일반 개별 패치의 90% 이상, 개별 보안 패치의 87% 이상을 효과적으로 풀어냅니다. 우리는 SOTA 방법과 우리의 접근 방식을 비교하고 DISPATCH가 20% 이상의 정확도 향상으로 이들을 능가함을 보여줍니다.
-
-## Acknowledgments
-
-우리는 우리의 Shepherd와 검토자들의 통찰력 있는 피드백에 감사드립니다. 이 연구는 ONR 보조금 N00014-23-1-2122와 George Mason University의 IDIA P3 Faculty Fellowship의 부분적인 지원을 받았습니다.
-
-## Ethics Considerations
-
-우리의 작업은 GitHub의 오픈 소스 코드에 대한 프로그램 분석을 수행합니다. 모든 실험은 공개적으로 사용 가능한 소스 코드 및 탐지 모델에서 수행됩니다. 이 작업으로 인해 새로운 취약점이 생성되거나 식별되지 않으므로 윤리적 문제가 발생하지 않습니다.
-
-## Open Science
-
-이 작업의 소스 코드와 데이터셋은 다음에서 사용할 수 있습니다: https://figshare.com/articles/software/DISPATCH/28256150.
-
-## References
-
-- <a id="ref1"></a>[1] "Official Patch for CVE-2021-3449," https://github.com/openssl/openssl/commit/fb9fa6b51defd48157eeb207f52181f735d96148.
-- <a id="ref2"></a>[2] "Official Patch for CVE-2022-4304," https://github.com/openssl/openssl/commit/3f499b24f3bcd66db022074f7e8b4f6ee266a3ae.
-- <a id="ref3"></a>[3] "Official Patch for CVE-2023-0464," https://github.com/openssl/openssl/commit/879f7080d7e141f415c79eaa3a8ac4a3dad0348b.
-- <a id="ref4"></a>[4] "OpenSSL Vulnerabilities Fixed in OpenSSL 1.1.1," https://www.openssl.org/news/vulnerabilities-1.1.1.html.
-- <a id="ref5"></a>[5] "grammar zoo browsable c99 grammar 2015," 2015. [Online]. Available: https://slebok.github.io/zoo/c/c99/iso-9899-tc3/extracted/index.html
-- <a id="ref6"></a>[6] "Git Repository of UTANGO." https://github.com/Commit-Untangling/commit-untangling, 2022.
-- <a id="ref7"></a>[7] "National Vulnerability Database," https://nvd.nist.gov, 2023.
-- <a id="ref8"></a>[8] "OpenSSL Project," https://github.com/openssl/openssl, 2023.
-- <a id="ref9"></a>[9] "Patch," https://csrc.nist.gov/glossary/term/patch, 2023.
-- <a id="ref10"></a>[10] "Release Strategy of OpenSSL," https://www.openssl.org/policies/releasestrat, 2023.
-- <a id="ref11"></a>[11] "Tree-Sitter," https://tree-sitter.github.io/tree-sitter/, 2023.
-- <a id="ref12"></a>[12] 2024. [Online]. Available: https://github.com/nothings/stb/commit/98fdfc6df88b1e34a736d5e126e6c8139c8de1a6
-- <a id="ref13"></a>[13] 2024. [Online]. Available: https://github.com/FFmpeg/FFmpeg/commit/54655623a82632e7624714d7b2a3e039dc5faa7e
-- <a id="ref14"></a>[14] "Split View of a Commit." https://github.com/openssl/openssl/commit/041962b429ebe748c8b6b7922980dfb6decfef26?diff=split&w=0, 2024.
-- <a id="ref15"></a>[15] "Understanding Patches and Software Updates." https://www.cisa.gov/news-events/news/understanding-patches-and-software-updates, 2024.
-- <a id="ref16"></a>[16] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat et al., "Gpt-4 technical report," arXiv preprint arXiv:2303.08774, 2023.
-- <a id="ref17"></a>[17] alexbuckgit, "C docs - get started, tutorials, reference." 2024. [Online]. Available: https://learn.microsoft.com/en-us/cpp/c-language/?view=msvc-170
-- <a id="ref18"></a>[18] R. Arima, Y. Higo, and S. Kusumoto, "A study on inappropriately partitioned commits: How much and what kinds of ip commits in java projects?" in Proceedings of the 15th International Conference on Mining Software Repositories, 2018, pp. 336-340.
-- <a id="ref19"></a>[19] W. Bai, Q. Wu, K. Wu, and K. Lu, "Exploring the influence of prompts in llms for security-related tasks."
-- <a id="ref20"></a>[20] M. Barnett, C. Bird, J. Brunet, and S. K. Lahiri, "Helping developers help themselves: Automatic decomposition of code review changesets," in 2015 IEEE/ACM 37th IEEE International Conference on Software Engineering, vol. 1. IEEE, 2015, pp. 134-144.
-- <a id="ref21"></a>[21] C. Bellei, H. Alattas, and N. Kaaniche, "Label-gcn: an effective method for adding label propagation to graph convolutional networks," arXiv preprint arXiv:2104.02153, 2021.
-- <a id="ref22"></a>[22] S. Chen, S. Xu, Y. Yao, and F. Xu, "Untangling composite commits by attributed graph clustering," in Proceedings of the 13th Asia-Pacific Symposium on Internetware, 2022, pp. 117–126.
-- <a id="ref23"></a>[23] M. Dias, A. Bacchelli, G. Gousios, D. Cassou, and S. Ducasse, "Untangling fine-grained code changes," in 2015 IEEE 22nd International Conference on Software Analysis, Evolution, and Reengineering (SANER). IEEE, 2015, pp. 341-350.
-- <a id="ref24"></a>[24] J.-R. Falleri, F. Morandat, X. Blanc, M. Martinez, and M. Monperrus, "Fine-grained and accurate source code differencing," in Proceedings of the 29th ACM/IEEE international conference on Automated software engineering, 2014, pp. 313-324.
-- <a id="ref25"></a>[25] B. Guo and M. Song, "Interactively decomposing composite changes to support code review and regression testing," in 2017 IEEE 41st Annual Computer Software and Applications Conference. IEEE, 2017, pp. 118-127.
-- <a id="ref26"></a>[26] S. Herbold, A. Trautsch, and B. Ledel, "Large-scale manual validation of bugfixing changes," in Proceedings of the 17th International Conference on Mining Software Repositories, 2020, pp. 611-614.
-- <a id="ref27"></a>[27] K. Herzig, S. Just, and A. Zeller, "The impact of tangled code changes on defect prediction models," Empirical Software Engineering, vol. 21, pp. 303-336, 2016.
-- <a id="ref28"></a>[28] M. Jin, S. Shahriar, M. Tufano, X. Shi, S. Lu, N. Sundaresan, and A. Svyatkovskiy, "Inferfix: End-to-end program repair with Ilms," in Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2023, pp. 1646-1656.
-- <a id="ref29"></a>[29] H. Kirinuki, Y. Higo, K. Hotta, and S. Kusumoto, "Hey! are you committing tangled changes?" in Proceedings of the 22nd International Conference on Program Comprehension, 2014, pp. 262–265.
-- <a id="ref30"></a>[30] "Splitting commits via past code changes," in 2016 23rd Asia-Pacific Software Engineering Conference (APSEC). IEEE, 2016, pp. 129-136.
-- <a id="ref31"></a>[31] F. Li and V. Paxson, "A large-scale empirical study of security patches," in Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security, 2017, pp. 2201-2215.
-- <a id="ref32"></a>[32] Y. Li, S. Wang, and T. N. Nguyen, "Utango: untangling commits with context-aware, graph-based, code change clustering learning model," in Proceedings of the 30th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2022, pp. 221-232.
-- <a id="ref33"></a>[33] Z. Li, D. Zou, S. Xu, H. Jin, Y. Zhu, and Z. Chen, "Sysevr: A framework for using deep learning to detect software vulnerabilities," IEEE Transactions on Dependable and Secure Computing, vol. 19, no. 4, pp. 2244-2258, 2021.
-- <a id="ref34"></a>[34] Z. Li, D. Zou, S. Xu, X. Ou, H. Jin, S. Wang, Z. Deng, and Y. Zhong, "Vuldeepecker: A deep learning-based system for vulnerability detection," arXiv preprint arXiv:1801.01681, 2018.
-- <a id="ref35"></a>[35] K. Lu and H. Hu, "Where does it go? refining indirect-call targets with multi-layer type analysis," in Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security, 2019, pp. 1867-1881.
-- <a id="ref36"></a>[36] C. Luo, W. Meng, and S. Wang, "Strengthening supply chain security with fine-grained safe patch identification," in 2024 IEEE/ACM 46th International Conference on Software Engineering (ICSE). IEEE Computer Society, 2024, pp. 873-873.
-- <a id="ref37"></a>[37] Y. Mirsky, G. Macon, M. Brown, C. Yagemann, M. Pruett, E. Downing, S. Mertoguno, and W. Lee, “Vulchecker: Graph-based vulnerability localization in source code," in 31st USENIX Security Symposium, Security 2022, 2023.
-- <a id="ref38"></a>[38] D. Müllner, "Modern hierarchical, agglomerative clustering algorithms," arXiv preprint arXiv:1109.2378, 2011.
-- <a id="ref39"></a>[39] W. Muylaert and C. De Roover, "Untangling composite commits using program slicing," in 2018 IEEE 18th International Working Conference on Source Code Analysis and Manipulation (SCAM). IEEE, 2018, pp. 193-202.
-- <a id="ref40"></a>[40] H. A. Nguyen, A. T. Nguyen, and T. N. Nguyen, "Filtering noise in mixed-purpose fixing commits to improve defect prediction and localization," in 2013 IEEE 24th international symposium on software reliability engineering (ISSRE). IEEE, 2013, pp. 138-147.
-- <a id="ref41"></a>[41] H. A. Nguyen, T. N. Nguyen, D. Dig, S. Nguyen, H. Tran, and M. Hilton, "Graph-based mining of in-the-wild, fine-grained, semantic code change patterns," in 2019 IEEE/ACM 41st International Conference on Software Engineering (ICSE). IEEE, 2019, pp. 819-830.
-- <a id="ref42"></a>[42] NIST, "Common Weakness Enumeration Specification (CWE)," https://nvd.nist.gov/vuln/categories.
-- <a id="ref43"></a>[43] OpenSSL, "crypto/rsa/rsa_oaep." https://github.com/openssl/openssl/compare/OpenSSL_1_1_0...OpenSSL_1_1_1, 2023.
-- <a id="ref44"></a>[44] P.-P. Pârțachi, S. K. Dash, M. Allamanis, and E. T. Barr, "Flexeme: Untangling commits using lexical flows," in Proceedings of the 28th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2020, pp. 63-74.
-- <a id="ref45"></a>[45] J. Pennington, R. Socher, and C. D. Manning, "Glove: Global vectors for word representation," in Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP), 2014, pp. 1532-1543.
-- <a id="ref46"></a>[46] K. A. Safwan and F. Servant, "Decomposing the rationale of code commits: the software developer's perspective," in Proceedings of the 2019 27th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2019, pp. 397-408.
-- <a id="ref47"></a>[47] B. Shen, W. Zhang, C. Kästner, H. Zhao, Z. Wei, G. Liang, and Z. Jin, "Smartcommit: a graph-based interactive assistant for activity-oriented commits," in Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2021, pp. 379-390.
-- <a id="ref48"></a>[48] L. Sousa, D. Cedrim, A. Garcia, W. Oizumi, A. C. Bibiano, D. Oliveira, M. Kim, and A. Oliveira, "Characterizing and identifying composite refactorings: Concepts, heuristics and patterns," in Proceedings of the 17th International Conference on Mining Software Repositories, 2020, pp. 186-197.
-- <a id="ref49"></a>[49] X. Tang, Z. Chen, K. Kim, H. Tian, S. Ezzini, and J. Klein, "Just-in-time security patch detection-llm at the rescue for data augmentation," arXiv preprint arXiv:2312.01241, 2023.
-- <a id="ref50"></a>[50] Y. Tao and S. Kim, "Partitioning composite code changes to facilitate code review," in 2015 IEEE/ACM 12th Working Conference on Mining Software Repositories. IEEE, 2015, pp. 180-190.
-- <a id="ref51"></a>[51] M. Wang, Z. Lin, Y. Zou, and B. Xie, “Cora: Decomposing and describing tangled code changes for reviewer," in 2019 34th IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE, 2019, pp. 1050-1061.
-- <a id="ref52"></a>[52] S. Wang, X. Wang, K. Sun, S. Jajodia, H. Wang, and Q. Li, "Graphspd: Graph-based security patch detection with enriched code semantics," in 2023 IEEE Symposium on Security and Privacy (SP). IEEE, 2023, pp. 2409-2426.
-- <a id="ref53"></a>[53] X. Wang, S. Wang, P. Feng, K. Sun, and S. Jajodia, "Patchdb: A large-scale security patch dataset," in 2021 51st Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN). IEEE, 2021, pp. 149-160.
-- <a id="ref54"></a>[54] M. Weiser, "Program slicing," IEEE Transactions on software engineering, no. 4, pp. 352-357, 1984.
-- <a id="ref55"></a>[55] Wikipedia, "Levenshtein distance." https://en.wikipedia.org/wiki/Levenshtein_distance, 2024.
-- <a id="ref56"></a>[56] S. Yamashita, S. Hayashi, and M. Saeki, "Changebeadsthreader: An interactive environment for tailoring automatically untangled changes," in 2020 IEEE 27th International Conference on Software Analysis, Evolution and Reengineering (SANER). IEEE, 2020, pp. 657-661.
-- <a id="ref57"></a>[57] J. Zhou, M. Pacheco, J. Chen, X. Hu, X. Xia, D. Lo, and A. E. Hassan, "Colefunda: Explainable silent vulnerability fix identification," in 2023 IEEE/ACM 45th International Conference on Software Engineering (ICSE). IEEE, 2023, pp. 2565-2577.
-- <a id="ref58"></a>[58] Y. Zhou, J. K. Siow, C. Wang, S. Liu, and Y. Liu, "Spi: Automated identification of security patches via commits," ACM Transactions on Software Engineering and Methodology (TOSEM), vol. 31, no. 1, pp. 1-27, 2021.
-- <a id="ref59"></a>[59] D. Zou, S. Wang, S. Xu, Z. Li, and H. Jin, "uvuldeepecker: A deep learning-based system for multiclass vulnerability detection," IEEE Transactions on Dependable and Secure Computing, vol. 18, no. 5, pp. 2224-2236, 2019.
