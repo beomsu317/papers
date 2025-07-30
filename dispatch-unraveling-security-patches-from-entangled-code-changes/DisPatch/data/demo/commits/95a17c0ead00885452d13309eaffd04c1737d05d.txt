@@ -1,0 +1,72 @@
+From 95a17c0ead00885452d13309eaffd04c1737d05d Mon Sep 17 00:00:00 2001
+From: Richard Levitte <levitte@openssl.org>
+Date: Tue, 5 Jul 2022 10:33:00 +0200
+Subject: [PATCH] Update copyright year
+
+Reviewed-by: Paul Dale <pauli@openssl.org>
+Release: yes
+---
+ crypto/aes/asm/aesni-x86.pl               | 2 +-
+ crypto/bn/bn_gcd.c                        | 2 +-
+ crypto/x509v3/v3_addr.c                   | 2 +-
+ doc/man3/SSL_get_current_cipher.pod       | 2 +-
+ test/recipes/30-test_evp_data/evpciph.txt | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/crypto/aes/asm/aesni-x86.pl b/crypto/aes/asm/aesni-x86.pl
+index 812758e02e04f..3502940d5233e 100644
+--- a/crypto/aes/asm/aesni-x86.pl
++++ b/crypto/aes/asm/aesni-x86.pl
+@@ -1,5 +1,5 @@
+ #! /usr/bin/env perl
+-# Copyright 2009-2020 The OpenSSL Project Authors. All Rights Reserved.
++# Copyright 2009-2022 The OpenSSL Project Authors. All Rights Reserved.
+ #
+ # Licensed under the OpenSSL license (the "License").  You may not use
+ # this file except in compliance with the License.  You can obtain a copy
+diff --git a/crypto/bn/bn_gcd.c b/crypto/bn/bn_gcd.c
+index c4b7854e1ab4b..6190bf1eddb0a 100644
+--- a/crypto/bn/bn_gcd.c
++++ b/crypto/bn/bn_gcd.c
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 1995-2020 The OpenSSL Project Authors. All Rights Reserved.
++ * Copyright 1995-2022 The OpenSSL Project Authors. All Rights Reserved.
+  *
+  * Licensed under the OpenSSL license (the "License").  You may not use
+  * this file except in compliance with the License.  You can obtain a copy
+diff --git a/crypto/x509v3/v3_addr.c b/crypto/x509v3/v3_addr.c
+index 32f77a2679db0..ccce34ef2e48a 100644
+--- a/crypto/x509v3/v3_addr.c
++++ b/crypto/x509v3/v3_addr.c
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2006-2016 The OpenSSL Project Authors. All Rights Reserved.
++ * Copyright 2006-2022 The OpenSSL Project Authors. All Rights Reserved.
+  *
+  * Licensed under the OpenSSL license (the "License").  You may not use
+  * this file except in compliance with the License.  You can obtain a copy
+diff --git a/doc/man3/SSL_get_current_cipher.pod b/doc/man3/SSL_get_current_cipher.pod
+index 98d2082ae3b8c..4ed555aa49725 100644
+--- a/doc/man3/SSL_get_current_cipher.pod
++++ b/doc/man3/SSL_get_current_cipher.pod
+@@ -61,7 +61,7 @@ L<ssl(7)>, L<SSL_CIPHER_get_name(3)>
+ 
+ =head1 COPYRIGHT
+ 
+-Copyright 2000-2018 The OpenSSL Project Authors. All Rights Reserved.
++Copyright 2000-2022 The OpenSSL Project Authors. All Rights Reserved.
+ 
+ Licensed under the OpenSSL license (the "License").  You may not use
+ this file except in compliance with the License.  You can obtain a copy
+diff --git a/test/recipes/30-test_evp_data/evpciph.txt b/test/recipes/30-test_evp_data/evpciph.txt
+index e12670d9a4b4a..8480ddee0b635 100644
+--- a/test/recipes/30-test_evp_data/evpciph.txt
++++ b/test/recipes/30-test_evp_data/evpciph.txt
+@@ -1,5 +1,5 @@
+ #
+-# Copyright 2001-2019 The OpenSSL Project Authors. All Rights Reserved.
++# Copyright 2001-2022 The OpenSSL Project Authors. All Rights Reserved.
+ #
+ # Licensed under the OpenSSL license (the "License").  You may not use
+ # this file except in compliance with the License.  You can obtain a copy

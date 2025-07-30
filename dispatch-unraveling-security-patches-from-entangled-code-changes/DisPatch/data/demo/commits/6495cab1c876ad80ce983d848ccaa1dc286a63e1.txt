@@ -1,0 +1,44 @@
+From 6495cab1c876ad80ce983d848ccaa1dc286a63e1 Mon Sep 17 00:00:00 2001
+From: slontis <shane.lontis@oracle.com>
+Date: Fri, 1 Jul 2022 13:47:11 +1000
+Subject: [PATCH] Fix bn_gcd code to check return value when calling BN_one()
+
+BN_one() uses the expand function which calls malloc which may fail.
+All other places that reference BN_one() check the return value.
+
+The issue is triggered by a memory allocation failure.
+Detected by PR #18355
+
+Reviewed-by: Tomas Mraz <tomas@openssl.org>
+Reviewed-by: Paul Dale <pauli@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/18697)
+
+(cherry picked from commit 7fe7cc57af3db1e497877f0329ba17609b2efc8b)
+---
+ crypto/bn/bn_gcd.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/crypto/bn/bn_gcd.c b/crypto/bn/bn_gcd.c
+index 0941f7b97f3f7..c4b7854e1ab4b 100644
+--- a/crypto/bn/bn_gcd.c
++++ b/crypto/bn/bn_gcd.c
+@@ -47,7 +47,8 @@ BIGNUM *bn_mod_inverse_no_branch(BIGNUM *in,
+     if (R == NULL)
+         goto err;
+ 
+-    BN_one(X);
++    if (!BN_one(X))
++        goto err;
+     BN_zero(Y);
+     if (BN_copy(B, a) == NULL)
+         goto err;
+@@ -235,7 +236,8 @@ BIGNUM *int_bn_mod_inverse(BIGNUM *in,
+     if (R == NULL)
+         goto err;
+ 
+-    BN_one(X);
++    if (!BN_one(X))
++        goto err;
+     BN_zero(Y);
+     if (BN_copy(B, a) == NULL)
+         goto err;

@@ -1,0 +1,20 @@
+diff --git a/rsa.c b/rsa.c
+index 34de7b2aab..1acbbde3d3 100644
+--- a/rsa.c
++++ b/rsa.c
+@@ -20,2 +20 @@ RSA_padding_check_PKCS1_OAEP_mgf1
+-    em = OPENSSL_malloc(num);
+-    if(db == NULL || em == NULL){
++    if (db == NULL) {
+@@ -25 +24,5 @@ RSA_padding_check_PKCS1_OAEP_mgf1
+-    memset(em, 0, num);
++    em = OPENSSL_zalloc(num);
++    if (em == NULL) {
++        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1,ERR_R_MALLOC_FAILURE);
++        goto cleanup;
++    }
+@@ -66,2 +69,2 @@ RSA_padding_check_PKCS1_OAEP_mgf1
+-    OPENSSL_free(db);
+-    OPENSSL_free(em);
++    OPENSSL_clear_free(db, dblen);
++    OPENSSL_clear_free(em, num);

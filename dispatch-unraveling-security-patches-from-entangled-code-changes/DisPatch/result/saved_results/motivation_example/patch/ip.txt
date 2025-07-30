@@ -1,0 +1,4 @@
+Individual Patch
+0_B_24,0_B_26,0_B_20,0_B_28,0_A_25,0_A_21,0_A_20,0_B_25,0_B_27
+Security Individual Patch
+0_B_69,0_A_66,0_A_67,0_B_70

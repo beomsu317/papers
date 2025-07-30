@@ -1,0 +1,16 @@
+Patch 0: Non-security
+0_A_20, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, em = OPENSSL_malloc(num);
+0_A_21, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, if(db == NULL || em == NULL){
+0_A_25, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, memset(em, 0, num);
+0_B_20, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, if (db == NULL) {
+0_B_24, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, em = OPENSSL_zalloc(num);
+0_B_25, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, if (em == NULL) {
+0_B_26, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1,ERR_R_MALLOC_FAILURE);
+0_B_27, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, goto cleanup;
+0_B_28, rsa.c, RSA_padding_check_PKCS1_OAEP_mgf1, }
+
+Patch 1: Security
+0_A_66, rsa.c, OPENSSL_free(db);
+0_A_67, rsa.c, OPENSSL_free(em);
+0_B_69, rsa.c, OPENSSL_clear_free(db, dblen);
+0_B_70, rsa.c, OPENSSL_clear_free(em, num);

@@ -1,0 +1,56 @@
+diff --git a/crypto/bn/bn_gcd.c b/crypto/bn/bn_gcd.c
+index 0941f7b97f..6190bf1edd 100644
+--- a/crypto/bn/bn_gcd.c
++++ b/crypto/bn/bn_gcd.c
+@@ -2 +2 @@
+- * Copyright 1995-2020 The OpenSSL Project Authors. All Rights Reserved.
++ * Copyright 1995-2022 The OpenSSL Project Authors. All Rights Reserved.
+@@ -50 +50,2 @@ BIGNUM *bn_mod_inverse_no_branch(BIGNUM *in,
+-    BN_one(X);
++    if (!BN_one(X))
++        goto err;
+@@ -238 +239,2 @@ BIGNUM *int_bn_mod_inverse(BIGNUM *in,
+-    BN_one(X);
++    if (!BN_one(X))
++        goto err;
+diff --git a/crypto/ec/ec_asn1.c b/crypto/ec/ec_asn1.c
+index 34de7b2aab..1acbbde3d3 100644
+--- a/crypto/ec/ec_asn1.c
++++ b/crypto/ec/ec_asn1.c
+@@ -797 +797 @@ EC_GROUP *EC_GROUP_new_from_ecparameters(const ECPARAMETERS *params)
+-    if ((a = ASN1_INTEGER_to_BN(params->order, a)) == NULL) {
++    if (ASN1_INTEGER_to_BN(params->order, a) == NULL) {
+@@ -814 +814 @@ EC_GROUP *EC_GROUP_new_from_ecparameters(const ECPARAMETERS *params)
+-    } else if ((b = ASN1_INTEGER_to_BN(params->cofactor, b)) == NULL) {
++    } else if (ASN1_INTEGER_to_BN(params->cofactor, b) == NULL) {
+diff --git a/crypto/x509v3/v3_addr.c b/crypto/x509v3/v3_addr.c
+index 4258dbc40c..ccce34ef2e 100644
+--- a/crypto/x509v3/v3_addr.c
++++ b/crypto/x509v3/v3_addr.c
+@@ -2 +2 @@
+- * Copyright 2006-2016 The OpenSSL Project Authors. All Rights Reserved.
++ * Copyright 2006-2022 The OpenSSL Project Authors. All Rights Reserved.
+@@ -15,0 +16,2 @@
++#include <assert.h>
++#include <string.h>
+@@ -345,2 +347,7 @@ static int range_should_be_prefix(const unsigned char *min,
+-    if (memcmp(min, max, length) <= 0)
+-        return -1;
++    /*
++     * It is the responsibility of the caller to confirm min <= max. We don't
++     * use ossl_assert() here since we have no way of signalling an error from
++     * this function - so we just use a plain assert instead.
++     */
++    assert(memcmp(min, max, length) <= 0);
++
+@@ -428,0 +436,3 @@ static int make_addressRange(IPAddressOrRange **result,
++    if (memcmp(min, max, length) > 0)
++        return 0;
++
+diff --git a/crypto/x509v3/v3_sxnet.c b/crypto/x509v3/v3_sxnet.c
+index 144e8bee84..3c5508f941 100644
+--- a/crypto/x509v3/v3_sxnet.c
++++ b/crypto/x509v3/v3_sxnet.c
+@@ -80,0 +81,2 @@ static int sxnet_i2r(X509V3_EXT_METHOD *method, SXNET *sx, BIO *out,
++        if (tmp == NULL)
++            return 0;

@@ -1,0 +1,27 @@
+From 7a05fcb1fc276a7ecfe599d45655d4e617c5e2d4 Mon Sep 17 00:00:00 2001
+From: xkernel <xkernel.wang@foxmail.com>
+Date: Mon, 20 Jun 2022 17:46:39 +0800
+Subject: [PATCH] v3_sxnet: add a check for the return of i2s_ASN1_INTEGER()
+
+Reviewed-by: Matt Caswell <matt@openssl.org>
+Reviewed-by: Ben Kaduk <kaduk@mit.edu>
+(Merged from https://github.com/openssl/openssl/pull/18608)
+
+(cherry picked from commit 9ef1f848a646565d4dd86e56542cf921d4921ad9)
+---
+ crypto/x509v3/v3_sxnet.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/crypto/x509v3/v3_sxnet.c b/crypto/x509v3/v3_sxnet.c
+index 144e8bee84adc..3c5508f9416ce 100644
+--- a/crypto/x509v3/v3_sxnet.c
++++ b/crypto/x509v3/v3_sxnet.c
+@@ -78,6 +78,8 @@ static int sxnet_i2r(X509V3_EXT_METHOD *method, SXNET *sx, BIO *out,
+     for (i = 0; i < sk_SXNETID_num(sx->ids); i++) {
+         id = sk_SXNETID_value(sx->ids, i);
+         tmp = i2s_ASN1_INTEGER(NULL, id->zone);
++        if (tmp == NULL)
++            return 0;
+         BIO_printf(out, "\n%*sZone: %s, User: ", indent, "", tmp);
+         OPENSSL_free(tmp);
+         ASN1_STRING_print(out, id->user);

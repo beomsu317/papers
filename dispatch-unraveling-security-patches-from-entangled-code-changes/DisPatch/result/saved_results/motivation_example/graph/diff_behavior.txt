@@ -1,0 +1,4 @@
+0,A_21,B_20,moveif(db == NULL || em == NULL){
+0,A_25,B_24,movememset(em, 0, num)
+0,A_66,B_69,update function
+0,A_67,B_70,update function

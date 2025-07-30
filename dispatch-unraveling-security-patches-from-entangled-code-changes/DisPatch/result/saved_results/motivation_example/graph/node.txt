@@ -1,0 +1,141 @@
+0,CA_1,int RSA_padding_check_PKCS1_OAEP_mgf1(unsigned char *to, int tlen, const unsigned char *from, int flen, int num, const unsigned char *param, int plen, const EVP_MD *md, const EVP_MD *mgf1md)
+0,CA_2,{
+0,CA_3,    int i, dblen = 0, mlen = -1, one_index = 0, msg_index;
+0,CA_4,    unsigned int good, found_one_byte;
+0,CA_5,    const unsigned char *maskedseed, *maskeddb;
+0,CA_6,    unsigned char *db = NULL, *em = NULL, seed[EVP_MAX_MD_SIZE],
+0,CA_7,        phash[EVP_MAX_MD_SIZE];
+0,CA_8,    int mdlen;
+0,CA_9,    if (md == NULL)
+0,CA_10,        md = EVP_sha1();
+0,CA_11,    if (mgf1md == NULL)
+0,CA_12,        mgf1md = md;
+0,CA_13,    mdlen = EVP_MD_size(md);
+0,CA_14,    if (tlen <= 0 || flen <= 0)
+0,CA_15,        return -1;
+0,CA_16,    if (num < flen || num < 2 * mdlen + 2)
+0,CA_17,        goto decoding_err;
+0,CA_18,    dblen = num - mdlen - 1;
+0,CA_19,    db = OPENSSL_malloc(dblen);
+0,A_20,    em = OPENSSL_malloc(num);
+0,A_21,    if(db == NULL || em == NULL){
+0,CA_22,        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1, ERR_R_MALLOC_FAILURE);
+0,CA_23,        goto cleanup;
+0,CA_24,    }
+0,A_25,    memset(em, 0, num);
+0,CA_26,    good = constant_time_is_zero(from[0]);
+0,CA_27,    maskedseed = from + 1;
+0,CA_28,    maskeddb = from + 1 + mdlen;
+0,CA_29,    if (PKCS1_MGF1(seed, mdlen, maskeddb, dblen, mgf1md))
+0,CA_30,        goto cleanup;
+0,CA_31,    for (i = 0; i < mdlen; i++)
+0,CA_32,        seed[i] ^= maskedseed[i];
+0,CA_33,    if (PKCS1_MGF1(db, dblen, seed, mdlen, mgf1md))
+0,CA_34,        goto cleanup;
+0,CA_35,    for (i = 0; i < dblen; i++)
+0,CA_36,        db[i] ^= maskeddb[i];
+0,CA_37,
+0,CA_38,    if (!EVP_Digest((void *)param, plen, phash, NULL, md, NULL))
+0,CA_39,        goto cleanup;
+0,CA_40,    good &= constant_time_is_zero(CRYPTO_memcmp(db, phash, mdlen));
+0,CA_41,    found_one_byte = 0;
+0,CA_42,    for (i = mdlen; i < dblen; i++) {
+0,CA_43,        unsigned int equals1 = constant_time_eq(db[i], 1);
+0,CA_44,        unsigned int equals0 = constant_time_is_zero(db[i]);
+0,CA_45,        one_index = constant_time_select_int(~found_one_byte & equals1,i, one_index);
+0,CA_46,        found_one_byte |= equals1;
+0,CA_47,        good &= (found_one_byte | equals0);
+0,CA_48,    }
+0,CA_49,    good &= found_one_byte;
+0,CA_50,    if (!good)
+0,CA_51,        goto decoding_err;
+0,CA_52,    msg_index = one_index + 1;
+0,CA_53,    mlen = dblen - msg_index;
+0,CA_54,    if (tlen < mlen) {
+0,CA_55,        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1, RSA_R_DATA_TOO_LARGE);
+0,CA_56,        mlen = -1;
+0,CA_57,    } else {
+0,CA_58,        memcpy(to, db + msg_index, mlen);
+0,CA_59,        goto cleanup;
+0,CA_60,    }
+0,CA_61, decoding_err:
+0,CA_62,    RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1,
+0,CA_63,           RSA_R_OAEP_DECODING_ERROR);
+0,CA_64, cleanup:
+0,CA_65,    OPENSSL_cleanse(seed, sizeof(seed));
+0,A_66,    OPENSSL_free(db);
+0,A_67,    OPENSSL_free(em);
+0,CA_68,    return mlen;
+0,CA_69,}
+0,CB_1,int RSA_padding_check_PKCS1_OAEP_mgf1(unsigned char *to, int tlen, const unsigned char *from, int flen, int num, const unsigned char *param, int plen, const EVP_MD *md, const EVP_MD *mgf1md)
+0,CB_2,{
+0,CB_3,    int i, dblen = 0, mlen = -1, one_index = 0, msg_index;
+0,CB_4,    unsigned int good, found_one_byte;
+0,CB_5,    const unsigned char *maskedseed, *maskeddb;
+0,CB_6,    unsigned char *db = NULL, *em = NULL, seed[EVP_MAX_MD_SIZE],
+0,CB_7,        phash[EVP_MAX_MD_SIZE];
+0,CB_8,    int mdlen;
+0,CB_9,    if (md == NULL)
+0,CB_10,        md = EVP_sha1();
+0,CB_11,    if (mgf1md == NULL)
+0,CB_12,        mgf1md = md;
+0,CB_13,    mdlen = EVP_MD_size(md);
+0,CB_14,    if (tlen <= 0 || flen <= 0)
+0,CB_15,        return -1;
+0,CB_16,    if (num < flen || num < 2 * mdlen + 2)
+0,CB_17,        goto decoding_err;
+0,CB_18,    dblen = num - mdlen - 1;
+0,CB_19,    db = OPENSSL_malloc(dblen);
+0,B_20,    if (db == NULL) {
+0,CB_21,        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1, ERR_R_MALLOC_FAILURE);
+0,CB_22,        goto cleanup;
+0,CB_23,    }
+0,B_24,    em = OPENSSL_zalloc(num);
+0,B_25,    if (em == NULL) {
+0,B_26,        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1,ERR_R_MALLOC_FAILURE);
+0,B_27,        goto cleanup;
+0,B_28,    }
+0,CB_29,    good = constant_time_is_zero(from[0]);
+0,CB_30,    maskedseed = from + 1;
+0,CB_31,    maskeddb = from + 1 + mdlen;
+0,CB_32,    if (PKCS1_MGF1(seed, mdlen, maskeddb, dblen, mgf1md))
+0,CB_33,        goto cleanup;
+0,CB_34,    for (i = 0; i < mdlen; i++)
+0,CB_35,        seed[i] ^= maskedseed[i];
+0,CB_36,    if (PKCS1_MGF1(db, dblen, seed, mdlen, mgf1md))
+0,CB_37,        goto cleanup;
+0,CB_38,    for (i = 0; i < dblen; i++)
+0,CB_39,        db[i] ^= maskeddb[i];
+0,CB_40,
+0,CB_41,    if (!EVP_Digest((void *)param, plen, phash, NULL, md, NULL))
+0,CB_42,        goto cleanup;
+0,CB_43,    good &= constant_time_is_zero(CRYPTO_memcmp(db, phash, mdlen));
+0,CB_44,    found_one_byte = 0;
+0,CB_45,    for (i = mdlen; i < dblen; i++) {
+0,CB_46,        unsigned int equals1 = constant_time_eq(db[i], 1);
+0,CB_47,        unsigned int equals0 = constant_time_is_zero(db[i]);
+0,CB_48,        one_index = constant_time_select_int(~found_one_byte & equals1,i, one_index);
+0,CB_49,        found_one_byte |= equals1;
+0,CB_50,        good &= (found_one_byte | equals0);
+0,CB_51,    }
+0,CB_52,    good &= found_one_byte;
+0,CB_53,    if (!good)
+0,CB_54,        goto decoding_err;
+0,CB_55,    msg_index = one_index + 1;
+0,CB_56,    mlen = dblen - msg_index;
+0,CB_57,    if (tlen < mlen) {
+0,CB_58,        RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1, RSA_R_DATA_TOO_LARGE);
+0,CB_59,        mlen = -1;
+0,CB_60,    } else {
+0,CB_61,        memcpy(to, db + msg_index, mlen);
+0,CB_62,        goto cleanup;
+0,CB_63,    }
+0,CB_64, decoding_err:
+0,CB_65,    RSAerr(RSA_F_RSA_PADDING_CHECK_PKCS1_OAEP_MGF1,
+0,CB_66,           RSA_R_OAEP_DECODING_ERROR);
+0,CB_67, cleanup:
+0,CB_68,    OPENSSL_cleanse(seed, sizeof(seed));
+0,B_69,    OPENSSL_clear_free(db, dblen);
+0,B_70,    OPENSSL_clear_free(em, num);
+0,CB_71,    return mlen;
+0,CB_72,}

@@ -1,0 +1,66 @@
+From 29708a562a1887a91de0fa6ca668c71871accde9 Mon Sep 17 00:00:00 2001
+From: Richard Levitte <levitte@openssl.org>
+Date: Tue, 5 Jul 2022 11:08:33 +0200
+Subject: [PATCH] Prepare for 1.1.1q release
+
+Reviewed-by: Paul Dale <pauli@openssl.org>
+Release: yes
+---
+ CHANGES                    | 2 +-
+ NEWS                       | 2 +-
+ README                     | 2 +-
+ include/openssl/opensslv.h | 4 ++--
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/CHANGES b/CHANGES
+index 62a555762dd20..c18a1f5149688 100644
+--- a/CHANGES
++++ b/CHANGES
+@@ -7,7 +7,7 @@
+  https://github.com/openssl/openssl/commits/ and pick the appropriate
+  release branch.
+ 
+- Changes between 1.1.1p and 1.1.1q [xx XXX xxxx]
++ Changes between 1.1.1p and 1.1.1q [5 Jul 2022]
+ 
+   *) AES OCB mode for 32-bit x86 platforms using the AES-NI assembly optimised
+      implementation would not encrypt the entirety of the data under some
+diff --git a/NEWS b/NEWS
+index 892793313fb3a..75e9ba062df36 100644
+--- a/NEWS
++++ b/NEWS
+@@ -5,7 +5,7 @@
+   This file gives a brief overview of the major changes between each OpenSSL
+   release. For more details please read the CHANGES file.
+ 
+-  Major changes between OpenSSL 1.1.1p and OpenSSL 1.1.1q [under development]
++  Major changes between OpenSSL 1.1.1p and OpenSSL 1.1.1q [5 Jul 2022]
+ 
+       o Fixed AES OCB failure to encrypt some bytes on 32-bit x86 platforms
+         (CVE-2022-2097)
+diff --git a/README b/README
+index 0bed454966b68..79f9c611a9335 100644
+--- a/README
++++ b/README
+@@ -1,5 +1,5 @@
+ 
+- OpenSSL 1.1.1q-dev
++ OpenSSL 1.1.1q 5 Jul 2022
+ 
+  Copyright (c) 1998-2022 The OpenSSL Project
+  Copyright (c) 1995-1998 Eric A. Young, Tim J. Hudson
+diff --git a/include/openssl/opensslv.h b/include/openssl/opensslv.h
+index cfced637d5a4b..fec5f579623df 100644
+--- a/include/openssl/opensslv.h
++++ b/include/openssl/opensslv.h
+@@ -39,8 +39,8 @@ extern "C" {
+  * (Prior to 0.9.5a beta1, a different scheme was used: MMNNFFRBB for
+  *  major minor fix final patch/beta)
+  */
+-# define OPENSSL_VERSION_NUMBER  0x10101110L
+-# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1q-dev  xx XXX xxxx"
++# define OPENSSL_VERSION_NUMBER  0x1010111fL
++# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1q  5 Jul 2022"
+ 
+ /*-
+  * The macros below are to be used for shared library (.so, .dll, ...)

@@ -1,0 +1,26 @@
+Patch 0: Security
+0_A_50, crypto/bn/bn_gcd.c, bn_mod_inverse_no_branch, BN_one(X);
+0_B_50, crypto/bn/bn_gcd.c, bn_mod_inverse_no_branch, if (!BN_one(X))
+0_B_51, crypto/bn/bn_gcd.c, bn_mod_inverse_no_branch, goto err;
+0_A_238, crypto/bn/bn_gcd.c, int_bn_mod_inverse, BN_one(X);
+0_B_239, crypto/bn/bn_gcd.c, int_bn_mod_inverse, if (!BN_one(X))
+0_B_240, crypto/bn/bn_gcd.c, int_bn_mod_inverse, goto err;
+
+Patch 1: Security
+1_A_797, crypto/ec/ec_asn1.c, EC_GROUP_new_from_ecparameters, if ((a = ASN1_INTEGER_to_BN(params->order, a)) == NULL) {
+1_B_797, crypto/ec/ec_asn1.c, EC_GROUP_new_from_ecparameters, if (ASN1_INTEGER_to_BN(params->order, a) == NULL) {
+1_A_814, crypto/ec/ec_asn1.c, EC_GROUP_new_from_ecparameters, } else if ((b = ASN1_INTEGER_to_BN(params->cofactor, b)) == NULL) {
+1_B_814, crypto/ec/ec_asn1.c, EC_GROUP_new_from_ecparameters, } else if (ASN1_INTEGER_to_BN(params->cofactor, b) == NULL) {
+
+Patch 2: Security
+2_B_16, crypto/x509v3/v3_addr.c, , #include <assert.h>
+2_B_17, crypto/x509v3/v3_addr.c, , #include <string.h>
+2_A_345, crypto/x509v3/v3_addr.c, range_should_be_prefix, if (memcmp(min, max, length) <= 0)
+2_A_346, crypto/x509v3/v3_addr.c, range_should_be_prefix, return -1;
+2_B_352, crypto/x509v3/v3_addr.c, range_should_be_prefix, assert(memcmp(min, max, length) <= 0);
+2_B_436, crypto/x509v3/v3_addr.c, make_addressRange, if (memcmp(min, max, length) > 0)
+2_B_437, crypto/x509v3/v3_addr.c, make_addressRange, return 0;
+
+Patch 3: Security
+3_B_81, crypto/x509v3/v3_sxnet.c, sxnet_i2r, if (tmp == NULL)
+3_B_82, crypto/x509v3/v3_sxnet.c, sxnet_i2r, return 0;

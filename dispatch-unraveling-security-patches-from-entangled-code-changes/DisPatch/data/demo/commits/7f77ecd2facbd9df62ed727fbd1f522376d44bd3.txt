@@ -1,0 +1,70 @@
+From 7f77ecd2facbd9df62ed727fbd1f522376d44bd3 Mon Sep 17 00:00:00 2001
+From: Matt Caswell <matt@openssl.org>
+Date: Tue, 21 Jun 2022 14:39:48 +0100
+Subject: [PATCH] Prepare for 1.1.1q-dev
+
+Reviewed-by: Richard Levitte <levitte@openssl.org>
+Release: yes
+---
+ CHANGES                    | 4 ++++
+ NEWS                       | 4 ++++
+ README                     | 2 +-
+ include/openssl/opensslv.h | 4 ++--
+ 4 files changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/CHANGES b/CHANGES
+index 18c320f85c847..b72c71d26b41c 100644
+--- a/CHANGES
++++ b/CHANGES
+@@ -7,6 +7,10 @@
+  https://github.com/openssl/openssl/commits/ and pick the appropriate
+  release branch.
+ 
++ Changes between 1.1.1p and 1.1.1q [xx XXX xxxx]
++
++  *)
++
+  Changes between 1.1.1o and 1.1.1p [21 Jun 2022]
+ 
+   *) In addition to the c_rehash shell command injection identified in
+diff --git a/NEWS b/NEWS
+index f5f5759c0ff24..d0c810f52f684 100644
+--- a/NEWS
++++ b/NEWS
+@@ -5,6 +5,10 @@
+   This file gives a brief overview of the major changes between each OpenSSL
+   release. For more details please read the CHANGES file.
+ 
++  Major changes between OpenSSL 1.1.1p and OpenSSL 1.1.1q [under development]
++
++      o
++
+   Major changes between OpenSSL 1.1.1o and OpenSSL 1.1.1p [21 Jun 2022]
+ 
+       o Fixed additional bugs in the c_rehash script which was not properly
+diff --git a/README b/README
+index 97a0042b86511..0bed454966b68 100644
+--- a/README
++++ b/README
+@@ -1,5 +1,5 @@
+ 
+- OpenSSL 1.1.1p 21 Jun 2022
++ OpenSSL 1.1.1q-dev
+ 
+  Copyright (c) 1998-2022 The OpenSSL Project
+  Copyright (c) 1995-1998 Eric A. Young, Tim J. Hudson
+diff --git a/include/openssl/opensslv.h b/include/openssl/opensslv.h
+index 7fb1b21f7ae89..cfced637d5a4b 100644
+--- a/include/openssl/opensslv.h
++++ b/include/openssl/opensslv.h
+@@ -39,8 +39,8 @@ extern "C" {
+  * (Prior to 0.9.5a beta1, a different scheme was used: MMNNFFRBB for
+  *  major minor fix final patch/beta)
+  */
+-# define OPENSSL_VERSION_NUMBER  0x1010110fL
+-# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1p  21 Jun 2022"
++# define OPENSSL_VERSION_NUMBER  0x10101110L
++# define OPENSSL_VERSION_TEXT    "OpenSSL 1.1.1q-dev  xx XXX xxxx"
+ 
+ /*-
+  * The macros below are to be used for shared library (.so, .dll, ...)

@@ -1,0 +1,36 @@
+From 882573246695088d65956355ca6c954642dcac31 Mon Sep 17 00:00:00 2001
+From: olszomal <Malgorzata.Olszowka@stunnel.org>
+Date: Fri, 17 Jun 2022 15:01:11 +0200
+Subject: [PATCH] SSL_get_current_cipher() and SSL_get_pending_cipher() return
+ 'const SSL_CIPHER *'
+
+Fix the documentation.
+
+CLA: trivial
+
+Reviewed-by: Matt Caswell <matt@openssl.org>
+Reviewed-by: Todd Short <todd.short@me.com>
+Reviewed-by: Paul Dale <pauli@openssl.org>
+Reviewed-by: Tomas Mraz <tomas@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/18599)
+
+(cherry picked from commit d842b6eff0940b6ce337536cb718a8d561290f50)
+---
+ doc/man3/SSL_get_current_cipher.pod | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/doc/man3/SSL_get_current_cipher.pod b/doc/man3/SSL_get_current_cipher.pod
+index 64ca819b0e1c4..98d2082ae3b8c 100644
+--- a/doc/man3/SSL_get_current_cipher.pod
++++ b/doc/man3/SSL_get_current_cipher.pod
+@@ -10,8 +10,8 @@ SSL_get_pending_cipher - get SSL_CIPHER of a connection
+ 
+  #include <openssl/ssl.h>
+ 
+- SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl);
+- SSL_CIPHER *SSL_get_pending_cipher(const SSL *ssl);
++ const SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl);
++ const SSL_CIPHER *SSL_get_pending_cipher(const SSL *ssl);
+ 
+  const char *SSL_get_cipher_name(const SSL *s);
+  const char *SSL_get_cipher(const SSL *s);

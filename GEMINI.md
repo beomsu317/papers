@@ -3,8 +3,7 @@
 > **번역 안내:**
 > - 한글 번역 시 대부분의 IT/AI/논문 전문 용어(예: Transformer, attention, model, layer, encoder, decoder, self-attention, feed-forward, embedding, softmax, BLEU 등)는 영어로 그대로 표기합니다.
 > - 문장 구조와 설명은 자연스러운 한글로 번역하되, **논문 제목, 모든 소제목(heading), figure/table의 caption(설명문)은 영어로 유지**합니다.
-- 논문 번역 시 반드시 원문의 항목(섹션, 소제목, 본문 등) 순서를 그대로 유지해야 합니다. (예: Abstract → 1 Introduction → 2 Background → ... → 마지막 항목)
-  - 마지막 항목이 References가 아닐 수도 있으니, 반드시 원문 논문의 실제 순서와 구조를 그대로 따라야 합니다.
+> - 논문 번역 시 반드시 원문의 항목(섹션, 소제목, 본문 등) 순서를 그대로 유지해야 합니다. (예: Abstract → 1 Introduction → 2 Background → ... → References)
 > - 본문에 등장하는 모든 수식은 GitHub LaTeX(인라인: `$...$`, 블록: `$$...$$`) 형태로 작성합니다.
 > - **참고문헌(References)은 반드시 영어 원문 그대로 포함해야 하며, 절대 생략하지 말고 모두 번역 결과에 포함해야 합니다.**
 
