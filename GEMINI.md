@@ -113,6 +113,52 @@ The dominant sequence transduction models are based on complex recurrent or conv
 
 The Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.
 
+Transformer는 recurrence를 사용하지 않고 attention 메M커니즘만으로 입력과 출력 간의 전역적 의존성을 학습한다.
+
+## 2 Background
+Attention mechanisms have become an integral part of compelling sequence modeling and transduction models in various tasks.
+
+Attention 메커니즘은 다양한 작업에서 시퀀스 모델링 및 변환 모델의 핵심 요소가 되었다.
+
+### 2.1 Notation and Definitions
+Given a sequence of inputs $x = (x_1, ..., x_n)$, the output is computed as follows:
+
+입력 시퀀스 $x = (x_1, ..., x_n)$에 대해 출력은 다음과 같이 계산된다:
+
+$$
+y_i = 	ext{Transformer}(x_1, ..., x_n)
+$$
+
+## References
+- [1] Vaswani, A., Shazeer, N., Parmar, N., et al. Attention is all you need.
+- [2] Bahdanau, D., Cho, K., Bengio, Y. Neural machine translation by jointly learning to align and translate.
+```
+
+---
+- 위 예시는 실제 논문 일부를 발췌해 번역, 수식, 참고문헌까지 포함한 전체 결과물의 형태를 보여줍니다.
+- 표, 그림 등은 포함하지 않습니다.
+- 실제 번역 시 논문 전체를 위와 같은 형식으로 작성하면 됩니다.
+---
+
+
+---
+**전체 논문 번역 예시 (Best Practice)**
+
+```markdown
+# Attention Is All You Need
+
+## Abstract
+We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.
+
+우리는 attention 메커니즘만을 기반으로 하는 새로운 간단한 네트워크 아키텍처인 Transformer를 제안한다. 이 구조는 recurrence와 convolution을 완전히 배제한다.
+
+## 1 Introduction
+The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder.
+
+기존의 시퀀스 변환 모델은 encoder와 decoder를 포함하는 복잡한 recurrent 또는 convolutional neural network에 기반한다.
+
+The Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.
+
 Transformer는 recurrence를 사용하지 않고 attention 메커니즘만으로 입력과 출력 간의 전역적 의존성을 학습한다.
 
 ## 2 Background
@@ -128,6 +174,8 @@ Given a sequence of inputs $x = (x_1, ..., x_n)$, the output is computed as foll
 $$
 y_i = \text{Transformer}(x_1, ..., x_n)
 $$
+
+**수식이 올바르게 번역되었습니다.**
 
 ## References
 - [1] Vaswani, A., Shazeer, N., Parmar, N., et al. Attention is all you need.
